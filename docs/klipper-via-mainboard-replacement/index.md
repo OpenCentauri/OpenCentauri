@@ -13,17 +13,16 @@ Currently a work in progress. See the progress below:
     - [ ] Control the extruder motor
     - [ ] Read yet to be determined sensors
 - [ ] Connect hot bed to Klipper
-    - [ ] Read thermocouple data
     - [ ] Read the load cell data
     - [ ] Read yet to be determined sensors
 - [ ] Connect the wires from the CC-Mainboard to 3rd party board
     - [ ] Control the bed heating
-    - [ ] Read the bed temperature
-    - [ ] Read the chamber temperature
-    - [ ] Control the case fan
-    - [ ] Control the AUX fan
-    - [ ] Control the X Y Z motors
-    - [ ] Read Z-Home sensor
-    - [ ] Set up sensorless homing
+    - [x] Read the bed temperature
+    - [x] Read the chamber temperature
+    - [x] Control the case fan
+    - [x] Control the AUX fan
+    - [x] Control the X Y Z motors
+    - [x] Read Z-Home sensor
+    - [x] Set up sensorless homing
     - [ ] Set up macro for Filament Change
     - [ ] Connect the stock camera
