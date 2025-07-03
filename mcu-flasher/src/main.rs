@@ -45,6 +45,12 @@ fn main() {
                 found = true;
             }
         }
+
+        if !found
+        {
+            println!("Waiting for device at {}...", args.device);
+            std::thread::sleep(std::time::Duration::from_secs(2));
+        }
     }
 
     let mut port = serialport::new(&args.device, args.baud)
