@@ -1,5 +1,6 @@
-use std::{io::Cursor, path::PathBuf};
+use std::{fs, io::Cursor, path::PathBuf};
 mod ymodem;
+use md5::{Digest, Md5};
 use ymodem::Ymodem;
 use clap::Parser;
 
@@ -32,7 +33,7 @@ struct Args
 }
 
 fn main() {
-    let args = Args::parse();
+    let mut args = Args::parse();
     let mut found = !args.wait;
 
     while !found
@@ -79,13 +80,39 @@ fn main() {
 
     let file_size_in_bytes = file_bytes.len() as u64;
 
-    let mut cursor = Cursor::new(&mut file_bytes);
+    if file_bytes.starts_with(&vec![0x14, 0x18, 0x01, 0x1A])
+    {
+        println!("Firmware file already has a header. No need to pad.");
+        args.pad_firmware = false;
+    }
 
-    println!("Sup");
+    if args.pad_firmware
+    {
+        let file_size = file_size_in_bytes as u32;
+
+        let mut header = [0u8; 0x10];
+        header[0x0..0x4].copy_from_slice(&vec![0x14, 0x18, 0x01, 0x1A]); // Magic
+        header[0x4] = 0x01; // Board type
+        header[0x5] = 0x02; // Patch version
+        header[0x6] = 0x03; // Minor version
+        header[0x7] = 0xFF; // Major version
+        header[0x8] = 0x01; // Unknown
+        header[0xC..0x10].copy_from_slice(&file_size.to_le_bytes());
+
+        let mut hasher = Md5::new();
+        hasher.update(&file_bytes);
+        let checksum = hasher.finalize();
+
+        println!("MD5 Checksum: {:x}", checksum);
+
+        let padding = [0xFFu8; 0x4000 - 0x20];
+
+        file_bytes = [&header[..], &checksum[..], &padding[..], &file_bytes[..]].concat();
+    }
+
+    let mut cursor = Cursor::new(&mut file_bytes);
 
     Ymodem::new()
         .send(&mut port, &mut cursor, file_name, file_size_in_bytes)
         .unwrap();
-
-    println!("Hello, world!");
 }
