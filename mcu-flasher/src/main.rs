@@ -8,8 +8,8 @@ use clap::Parser;
 #[command(name = "mcu-flasher", about = "Flash a new firmware over the Elegoo bootloader", version = "0.1")]
 struct Args
 {
-    /// Don't pad with 0x4000 bytes. Not needed if flashing elegoo's stock firmware.
-    #[arg(long, default_value_t = true)]
+    /// Don't pad with 0x4000 bytes. The program auto-detects padded firmware by the magic (0x1418011A) at the start of the file, and adds it if the firmware isn't padded. This option force disables this functionality.
+    #[arg(long, default_value_t = false)]
     pub no_pad_firmware: bool,
 
     // Don't flash firmware and just boot the existing firmware.
@@ -115,6 +115,8 @@ fn main() {
 
         file_bytes = [&header[..], &checksum[..], &padding[..], &file_bytes[..]].concat();
         file_size_in_bytes = file_bytes.len() as u64;
+
+        //fs::write("Z:/com.bin", &file_bytes).expect("Failed to write padded firmware file");
     }
 
     let mut cursor = Cursor::new(&mut file_bytes);
