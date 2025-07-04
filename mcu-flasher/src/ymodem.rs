@@ -123,7 +123,7 @@ impl Ymodem {
         dbg!("Starting YMODEM transfer");
         (self.start_send(dev))?;
         dbg!("First byte received. Sending start frame.");
-        (self.send_start_frame(dev, file_name, file_size_in_bytes))?;
+        (self.send_start_frame(dev, file_name, file_size_in_bytes, packets_to_send))?;
         dbg!("Start frame acknowledged. Sending stream.");
         (self.send_stream(dev, stream, packets_to_send, last_packet_size))?;
         dbg!("Sending EOT");
@@ -178,9 +178,10 @@ impl Ymodem {
         dev: &mut D,
         file_name: String,
         file_size_in_bytes: u64,
+        package_count : u32,
     ) -> Result<()> {
-        let mut buff = vec![0x00; 128 as usize + 3];
-        buff[0] = SOH;
+        let mut buff = vec![0x00; 1024 as usize + 3];
+        buff[0] = STX;
         buff[1] = 0x00;
         buff[2] = 0xFF;
 
@@ -193,13 +194,36 @@ impl Ymodem {
         // We leave one 0 to indicate the name ends here
         curr_buff_idx += 1;
 
-        for byte in format!("{:x}", file_size_in_bytes).as_bytes() {
+        println!("{}", file_size_in_bytes);
+
+        for byte in format!("{}", file_size_in_bytes).as_bytes() {
             buff[curr_buff_idx] = *byte;
+            curr_buff_idx += 1;
         }
+
+        buff[curr_buff_idx] = ' ' as u8;
+        curr_buff_idx += 1;
+
+        for byte in "15016031235".as_bytes() {
+            buff[curr_buff_idx] = *byte;
+            curr_buff_idx += 1;
+        }
+
+        buff[curr_buff_idx] = ' ' as u8;
+        curr_buff_idx += 1;
+
+        for byte in format!("{:o}", package_count).as_bytes() {
+            buff[curr_buff_idx] = *byte;
+            curr_buff_idx += 1;
+        }
+
+        buff[curr_buff_idx] = ' ' as u8;
 
         let crc = calc_crc(&buff[3..]);
         buff.push(((crc >> 8) & 0xFF) as u8);
         buff.push((crc & 0xFF) as u8);
+
+        println!("{}", buff.iter().map(|b| format!("{:02X}", b)).collect::<Vec<String>>().join(""));
 
         (dev.write_all(&buff))?;
         (dev.flush())?;

@@ -8,9 +8,9 @@ use clap::Parser;
 #[command(name = "mcu-flasher", about = "Flash a new firmware over the Elegoo bootloader", version = "0.1")]
 struct Args
 {
-    /// Pad with 0x4000 bytes. Not needed if flashing elegoo's stock firmware.
+    /// Don't pad with 0x4000 bytes. Not needed if flashing elegoo's stock firmware.
     #[arg(long, default_value_t = true)]
-    pub pad_firmware: bool,
+    pub no_pad_firmware: bool,
 
     // Don't flash firmware and just boot the existing firmware.
     #[arg(long, default_value_t = false)]
@@ -84,15 +84,15 @@ fn main() {
     let mut file_bytes = std::fs::read(&args.firmware)
         .expect("Failed to read firmware file");
 
-    let file_size_in_bytes = file_bytes.len() as u64;
+    let mut file_size_in_bytes = file_bytes.len() as u64;
 
     if file_bytes.starts_with(&vec![0x14, 0x18, 0x01, 0x1A])
     {
         println!("Firmware file already has a header. No need to pad.");
-        args.pad_firmware = false;
+        args.no_pad_firmware = true;
     }
 
-    if args.pad_firmware
+    if !args.no_pad_firmware
     {
         let file_size = file_size_in_bytes as u32;
 
@@ -114,6 +114,7 @@ fn main() {
         let padding = [0xFFu8; 0x4000 - 0x20];
 
         file_bytes = [&header[..], &checksum[..], &padding[..], &file_bytes[..]].concat();
+        file_size_in_bytes = file_bytes.len() as u64;
     }
 
     let mut cursor = Cursor::new(&mut file_bytes);
