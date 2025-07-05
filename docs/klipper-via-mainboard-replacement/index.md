@@ -4,19 +4,19 @@ Currently a work in progress. See the progress below:
 
 - [ ] Connect hotend to Klipper
     - [x] [Recognize the hotend](recognize-hotend.md)
-        - [ ] Update firmware on hotend board
+        - [x] Update firmware on hotend board
         - [ ] Downgrade Klipper
     - [x] Read and control temperature
     - [x] Control the model fan
     - [X] Control the hotend fan
     - [ ] Read the ADXL accelerometer
-    - [ ] Control the extruder motor
-    - [ ] Read yet to be determined sensors
+    - [x] Control the extruder motor
+    - [x] Read yet to be determined sensors
 - [ ] Connect hot bed to Klipper
     - [ ] Read the load cell data
     - [ ] Read yet to be determined sensors
 - [ ] Connect the wires from the CC-Mainboard to 3rd party board
-    - [ ] Control the bed heating
+    - [x] Control the bed heating
     - [x] Read the bed temperature
     - [x] Read the chamber temperature
     - [x] Control the case fan
