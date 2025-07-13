@@ -37,7 +37,8 @@ nav:
     - Embedded Firmware: software/embedded-firmware.md
   - Klipper via mainboard replacement:
     - Main: klipper-via-mainboard-replacement/index.md
-    - Recognize Hotend: klipper-via-mainboard-replacement/recognize-hotend.md
+    - Replace Mainboard: klipper-via-mainboard-replacement/replace-mainboard.md
+    - Connect Toolhead: klipper-via-mainboard-replacement/connect-toolhead.md
     - Printer Config: klipper-via-mainboard-replacement/printer-config.md
     - Mainsail Config: klipper-via-mainboard-replacement/mainsail-config.md
     - UDEV Setup: klipper-via-mainboard-replacement/udev-setup.md

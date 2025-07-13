@@ -1,6 +1,6 @@
 # OpenCentauri
 
-Place for research on the centauri carbon.
+Place for research on the ELEGOO Centauri Carbon.
 
 Currently under heavy development.
 

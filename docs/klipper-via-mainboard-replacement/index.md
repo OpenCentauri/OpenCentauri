@@ -2,14 +2,14 @@
 
 Currently a work in progress. See the progress below:
 
-- [ ] Connect hotend to Klipper
-    - [x] [Recognize the hotend](recognize-hotend.md)
-        - [x] Update firmware on hotend board
+- [ ] Connect toolhead to Klipper
+    - [x] [Connect the toolhead](connect-toolhead.md)
+        - [x] Update firmware on toolhead board
         - [ ] Downgrade Klipper
     - [x] Read and control temperature
     - [x] Control the model fan
-    - [X] Control the hotend fan
-    - [ ] Read the ADXL accelerometer
+    - [x] Control the hotend fan
+    - [x] Read the LIS2DW accelerometer
     - [x] Control the extruder motor
     - [x] Read yet to be determined sensors
 - [ ] Connect hot bed to Klipper
