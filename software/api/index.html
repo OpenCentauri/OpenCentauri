@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -1170,6 +1170,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#set-print-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set Print Speed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-fan-speeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set The Fan Speeds
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2182,6 +2200,46 @@ SDCP_PRINT_CTRL_ACK_UNKNOWN_MODEL = 7
 <span class="w">    </span><span class="nt">&quot;Topic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sdcp/request/{MainboardID}&quot;</span>
 <span class="p">}</span>
 </code></pre></div></p>
+<h4 id="set-print-speed">Set Print Speed</h4>
+<p>Update the print speed percentage for the current print job. You can find the preset speed values on the <a href="/OpenCentauri/software/#speed-profiles">Software Page</a>.</p>
+<p><strong>Request:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid-string&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Cmd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">403</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;PrintSpeedPct&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;RequestID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid-string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;MainboardID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;TimeStamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1687069655</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;From&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Topic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sdcp/request/{MainboardID}&quot;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="set-the-fan-speeds">Set The Fan Speeds</h4>
+<p>Update the fan speeds for the different fans on the printer.</p>
+<p><strong>Request:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid-string&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Cmd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">403</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;TargetFanSpeed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;ModelFan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;AuxiliaryFan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;BoxFan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;RequestID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid-string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;MainboardID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;TimeStamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1687069655</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;From&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Topic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sdcp/request/{MainboardID}&quot;</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h3 id="file-management-commands">File Management Commands</h3>
 <h4 id="retrieve-file-list-cmd-258">Retrieve File List (Cmd: 258)</h4>
 <p>Gets list of files in specified directory.</p>
@@ -2660,7 +2718,7 @@ SDCP_FROM_SERVER = 4
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 29, 2025 18:29:22 UTC">June 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 18, 2025 06:52:26 UTC">July 18, 2025</span>
   </span>
 
     
@@ -2687,6 +2745,16 @@ SDCP_FROM_SERVER = 4
 
     
     <nav>
+      
+        <a href="https://github.com/TheJokersThief" class="md-author" title="@TheJokersThief">
+          
+          <img src="https://avatars.githubusercontent.com/u/1175876?v=4&size=72" alt="TheJokersThief">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
       
         <a href="https://github.com/suchmememanyskill" class="md-author" title="@suchmememanyskill">
           
@@ -2759,7 +2827,7 @@ SDCP_FROM_SERVER = 4
       <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.tabs", "navigation.expand", "toc.integrate"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
