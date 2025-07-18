@@ -520,6 +520,53 @@ Updates the printer's display name.
 }
 ```
 
+#### Set Print Speed
+Update the print speed percentage for the current print job. You can find the preset speed values on the [Software Page](/OpenCentauri/software/#speed-profiles).
+
+**Request:**
+```json
+{
+    "Id": "uuid-string",
+    "Data": {
+        "Cmd": 403,
+        "Data": {
+            "PrintSpeedPct": 50
+        },
+        "RequestID": "uuid-string",
+        "MainboardID": "string",
+        "TimeStamp": 1687069655,
+        "From": 0
+    },
+    "Topic": "sdcp/request/{MainboardID}"
+}
+```
+
+#### Set The Fan Speeds
+
+Update the fan speeds for the different fans on the printer.
+
+**Request:**
+```json
+{
+    "Id": "uuid-string",
+    "Data": {
+        "Cmd": 403,
+        "Data": {
+            "TargetFanSpeed": {
+                "ModelFan": 50,
+                "AuxiliaryFan": 50,
+                "BoxFan": 50,
+            }
+        },
+        "RequestID": "uuid-string",
+        "MainboardID": "string",
+        "TimeStamp": 1687069655,
+        "From": 0
+    },
+    "Topic": "sdcp/request/{MainboardID}"
+}
+```
+
 ### File Management Commands
 
 #### Retrieve File List (Cmd: 258)
