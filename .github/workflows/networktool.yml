@@ -1,0 +1,35 @@
+name: build-networktool
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "wifi-network-config-tool/**"
+
+jobs:
+  release:
+    name: Release - ${{ matrix.platform.os-name }}
+    strategy:
+      matrix:
+        platform:
+          - os-name: Linux-armv7
+            runs-on: ubuntu-24.04
+            target: armv7-unknown-linux-musleabihf
+
+    runs-on: ${{ matrix.platform.runs-on }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build binary
+        uses: houseabsolute/actions-rust-cross@v1
+        with:
+          command: build
+          target: ${{ matrix.platform.target }}
+          args: "--locked --release"
+          strip: true
+          working-directory: wifi-network-config-tool
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: wifi-network-config-tool-${{ matrix.platform.os-name }}
+          path: wifi-network-config-tool/target/${{ matrix.platform.target }}/release/wifi-network-config-tool
