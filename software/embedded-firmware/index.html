@@ -803,13 +803,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#flashing-custom-firmware" class="md-nav__link">
+  <a href="#flashing-custom-firmware-mcu-flasher" class="md-nav__link">
     <span class="md-ellipsis">
-      Flashing custom firmware
+      Flashing custom firmware (mcu-flasher)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Flashing custom firmware">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flashing-custom-firmware-stm32cubeprogrammer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing custom firmware (STM32CubeProgrammer)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flashing custom firmware (STM32CubeProgrammer)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -855,19 +864,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#vanilla-klipper-andor-custom-firmware" class="md-nav__link">
+  <a href="#building-for-stock-bootloader" class="md-nav__link">
     <span class="md-ellipsis">
-      Vanilla Klipper and/or custom firmware
+      Building for stock bootloader
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Vanilla Klipper and/or custom firmware">
+    <nav class="md-nav" aria-label="Building for stock bootloader">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#communication-interfaces" class="md-nav__link">
+  <a href="#hotend_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Communication interfaces
+      Hotend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bed
     </span>
   </a>
   
@@ -875,15 +893,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#boostrapping-the-stock-firmware" class="md-nav__link">
-    <span class="md-ellipsis">
-      Boostrapping the stock firmware
-    </span>
-  </a>
   
 </li>
         
@@ -1216,7 +1225,8 @@
 <p>The CC uses two different embedded firmware for the bed and the hotend boards with allegedly the same bootloader. The firmwares as of 2025-05-19 are a substitute of Klipper commit <code>28f60f7e</code> with a lot of changes.</p>
 <h2 id="official-update-method">Official update method</h2>
 <p>To update both the hotend and the bed boards, the main firmware attempts to send a file through YModem protocol when the said boards are power cycled during bootup. The firmware files are not encrypted and are stored
-on the <code>rootfsA</code> or <code>rootfsB</code> partition (whichever is active) in the <code>/lib/firmware</code> folder. The hotend firmware is called <code>upgrade-hotend.bin</code> and the bed board's is <code>upgrade-bed.bin</code>.</p>
+on the <code>rootfsA</code> or <code>rootfsB</code> partition (whichever is active) in the <code>/lib/firmware</code> folder. The hotend firmware is called <code>upgrade-hotend.bin</code> and the bed board's is <code>upgrade-bed.bin</code>. On firmware 1.1.29 the hotend/bed firmware got moved into the <code>/app/resources</code> folder.</p>
+<p>To replicate this behaviour outside of elegoo's official software, a <a href="https://github.com/suchmememanyskill/OpenCentauri/tree/main/mcu-flasher">flasher has been developed</a> that is able to push new firmware.</p>
 <h2 id="stm32-flash-structure">STM32 flash structure</h2>
 <table>
 <thead>
@@ -1245,13 +1255,14 @@ on the <code>rootfsA</code> or <code>rootfsB</code> partition (whichever is acti
 </tbody>
 </table>
 <p>The firmware upgrade files include the 16Kb of unknown (mostly 0xFF with some random bytes) data so it must be flashed on address <code>0x08008000</code>.</p>
-<h2 id="flashing-custom-firmware">Flashing custom firmware</h2>
+<h2 id="flashing-custom-firmware-mcu-flasher">Flashing custom firmware (mcu-flasher)</h2>
+<p>Using <a href="https://github.com/suchmememanyskill/OpenCentauri/tree/main/mcu-flasher">mcu-flasher</a> a custom firwmare can be flashed through the official elegoo bootloader. Run the program with <code>-h</code> for more information.</p>
+<h2 id="flashing-custom-firmware-stm32cubeprogrammer">Flashing custom firmware (STM32CubeProgrammer)</h2>
 <div class="admonition warning">
 <p class="admonition-title">No going back</p>
-<p>Flashing a new firmware will ERASE THE ELEGOO BOOTLOADER that we have no image file for, nor a substitution!</p>
+<p>Flashing a new firmware will ERASE THE ELEGOO BOOTLOADER.</p>
 <p>Currently the stock mainboard CANNOT boot from custom firmwares nor the stock firmware without the original bootloader. This essentially means you cannot use the stock mainboard anymore after wiping the firmware from the hotend or bed boards!</p>
-<p>Nobody in the OpenCentauri community holds responsibility of any bricked or damaged machine. 
-Anything you do is your own responsibility!</p>
+<p>Ask in the discord for a backup of the original bootloader.</p>
 </div>
 <h3 id="readout-protection">Readout Protection</h3>
 <p>The hotend and bed boards come with the readout protection enabled by default. As long as you don't remove it, the stock flash is safe. If you instruct the programmer to deactivate the readout protection, the entire flash memory, with the bootloader and the firmware will be wiped.</p>
@@ -1340,55 +1351,75 @@ Anything you do is your own responsibility!</p>
 </ol>
 <h2 id="firmware-creation">Firmware Creation</h2>
 <p>The STM32F402 is an STM32 variant specifically made for the Chinese market. For any configuration, use STM32F401RTC6 (sometimes just STM32F401).</p>
-<h3 id="vanilla-klipper-andor-custom-firmware">Vanilla Klipper and/or custom firmware</h3>
-<p>Select "No bootloader" in the <code>make menuconfig</code> and flash it to the default address. If you plan to use the stock bootloader and/or a similar size, select 32Kb bootloader and flash to default address + <code>0x8000</code>.</p>
-<h4 id="communication-interfaces">Communication interfaces</h4>
+<h3 id="building-for-stock-bootloader">Building for stock bootloader</h3>
+<p>The following options need to be set in <code>make menuconfig</code> in klipper. See <a href="https://github.com/OpenCentauri/kalico/tree/main/mcu">our klipper fork</a> for config examples.</p>
+<h4 id="hotend_1">Hotend</h4>
 <table>
 <thead>
 <tr>
-<th>Board</th>
-<th>Pins</th>
+<th>Option</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Hotend</td>
-<td>USB PA11 / PA12</td>
+<td>Micro-controller Architecture</td>
+<td>STMicroelectronics STM32</td>
 </tr>
 <tr>
-<td>Bed (stock RS232 transciever)</td>
-<td>UART PA2 / PA3</td>
+<td>Processor model</td>
+<td>STM32F401</td>
 </tr>
 <tr>
-<td>Bed (right side serial)</td>
-<td>UART1 PA9 / PA10</td>
+<td>Bootloader offset</td>
+<td>48KiB bootloader</td>
+</tr>
+<tr>
+<td>Clock reference</td>
+<td>24Mhz crystal</td>
+</tr>
+<tr>
+<td>Communication interface</td>
+<td>USB (on PA11/PA12)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="boostrapping-the-stock-firmware">Boostrapping the stock firmware</h3>
-<p>You need to find a bootloader either source code or image. Then you need to merge it with the Elegoo firmware into one file, with the following format:</p>
+<h4 id="bed_1">Bed</h4>
 <table>
 <thead>
 <tr>
-<th>Start offset</th>
-<th>End offset</th>
-<th>Description</th>
+<th>Option</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0x0</td>
-<td>0x7FFF</td>
-<td>Bootloader, padded with 0x00</td>
+<td>Micro-controller Architecture</td>
+<td>STMicroelectronics STM32</td>
 </tr>
 <tr>
-<td>0x8000</td>
-<td>...</td>
-<td>Stock firmware file</td>
+<td>Processor model</td>
+<td>STM32F401</td>
+</tr>
+<tr>
+<td>Bootloader offset</td>
+<td>48KiB bootloader</td>
+</tr>
+<tr>
+<td>Clock reference</td>
+<td>24Mhz crystal</td>
+</tr>
+<tr>
+<td>Communication interface</td>
+<td>Serial (on USART2 PA3/PA2)</td>
+</tr>
+<tr>
+<td>Baud rate for serial port</td>
+<td>115200</td>
 </tr>
 </tbody>
 </table>
-<p>And flash the merged file to the default address.</p>
+<p>If the serial pins are used on the right side (non stock configuration), UART1 PA9 / PA10 can be used also.</p>
 
 
 
@@ -1411,7 +1442,7 @@ Anything you do is your own responsibility!</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 20:39:08 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 30, 2025 12:47:10 UTC">July 30, 2025</span>
   </span>
 
     
@@ -1439,6 +1470,11 @@ Anything you do is your own responsibility!</p>
     
     <nav>
       
+        <a href="https://github.com/suchmememanyskill" class="md-author" title="@suchmememanyskill">
+          
+          <img src="https://avatars.githubusercontent.com/u/38142618?v=4&size=72" alt="suchmememanyskill">
+        </a>
+      
         <a href="https://github.com/rabirland" class="md-author" title="@rabirland">
           
           <img src="https://avatars.githubusercontent.com/u/17327831?v=4&size=72" alt="rabirland">
@@ -1447,11 +1483,6 @@ Anything you do is your own responsibility!</p>
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
-        </a>
-      
-        <a href="https://github.com/suchmememanyskill" class="md-author" title="@suchmememanyskill">
-          
-          <img src="https://avatars.githubusercontent.com/u/38142618?u=61a34ddba080efcf11b2b0c5d23e14c3deb152d0&v=4&size=72" alt="Sims">
         </a>
       
       
