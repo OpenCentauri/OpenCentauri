@@ -1,8 +1,8 @@
 name: build-multiplexer
 on:
   push:
-    branches:
-      - main
+    #branches:
+    #  - main
     paths:
       - "serial-multiplexer/**"
 
