@@ -8,11 +8,10 @@ use std::{
     path::PathBuf,
     process::exit,
     sync::{Arc, Mutex, mpsc::Receiver},
-    thread,
     time::Duration,
 };
 
-use crate::config::{Args, SerialEntry, SerialEntryRaw};
+use crate::config::{Args, SerialEntryRaw};
 use crate::serial_connection::*;
 mod config;
 mod serial_connection;
@@ -96,7 +95,7 @@ fn main() {
 
             let (port_sender, port_receiver) = std::sync::mpsc::channel::<DataBlock>();
 
-            let (mut master, mut slave) = TTYPort::pair().expect("Unable to create ptty pair");
+            let (mut master, slave) = TTYPort::pair().expect("Unable to create ptty pair");
             master.set_timeout(Duration::from_millis(100u64)).unwrap();
 
             let name = slave.name().unwrap();

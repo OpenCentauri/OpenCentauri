@@ -42,13 +42,6 @@ pub struct SerialConnectionSender {
     pub port_sender: Sender<DataBlock>,
 }
 
-pub struct SerialConnection {
-    pub id: u8,
-    pub serial_connection_sender_processor: SerialConnectionSenderProcessor,
-    pub serial_connection_receiver_processor: SerialConnectionReceiverProcessor,
-    pub port_sender: Sender<DataBlock>,
-}
-
 impl SerialPortManager {
     pub fn with_settings(settings: SerialConnectionSettings) -> Self {
         let port = match serialport::new(&settings.device_path, settings.baud_rate)
@@ -206,15 +199,6 @@ impl SerialConnectionSenderProcessor {
 
                 break 'outer;
             }
-        }
-    }
-}
-
-impl SerialConnection {
-    pub fn get_sender(&self) -> SerialConnectionSender {
-        SerialConnectionSender {
-            id: self.id,
-            port_sender: self.port_sender.clone(),
         }
     }
 }

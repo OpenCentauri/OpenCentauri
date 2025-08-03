@@ -1,12 +1,5 @@
 use clap::Parser;
 use serde::Deserialize;
-use serialport::TTYPort;
-
-pub struct SerialEntry {
-    pub name: String,
-    pub device: TTYPort,
-    pub id: u8,
-}
 
 #[derive(Debug, Deserialize)]
 pub struct SerialEntryRaw {
