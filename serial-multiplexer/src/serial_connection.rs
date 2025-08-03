@@ -60,7 +60,7 @@ impl SerialPortManager
 {
     pub fn with_settings(settings : SerialConnectionSettings) -> Self
     {
-        let port = match serialport::new(&settings.device_path, settings.baud_rate).timeout(Duration::from_millis(100u64)).open_native() {
+        let port = match serialport::new(&settings.device_path, settings.baud_rate).timeout(Duration::from_secs(9999999999u64)).open_native() {
             Ok(port) => port,
             Err(e) => {
                 eprintln!("Failed to open serial port {}: {}", &settings.device_path, e);
@@ -88,7 +88,10 @@ impl SerialPortManager
 
     pub fn give_port(&mut self) -> TTYPort
     {
-        if (self.index + 1) >= 2
+        #[cfg(debug_assertions)]
+        println!("Giving port with index: {}", self.index);
+
+        if (self.index) >= 2
         {
             self.generate_new_set_of_ports();
         }
@@ -103,7 +106,7 @@ impl SerialPortManager
         let settings = self.settings.clone().expect("Serial connection settings is unavailable, cannot recreate serial port");
 
         'outer: loop {
-            let serial_port = match serialport::new(&settings.device_path, settings.baud_rate).timeout(Duration::from_millis(100u64)).open_native() {
+            let serial_port = match serialport::new(&settings.device_path, settings.baud_rate).timeout(Duration::from_secs(9999999999u64)).open_native() {
                 Ok(port) => port,
                 Err(e) => {
                     eprintln!("Failed to open serial port {}: {}. Waiting 100ms", settings.device_path, e);
@@ -123,31 +126,37 @@ impl SerialPortManager
 impl SerialConnectionReceiverProcessor
 {
     pub fn process_loop(&self)
-    {
-        let mut port_manager = self.port_manager.lock().expect("Failed to lock port manager");
-        let mut read_port = port_manager.give_port();
-        drop(port_manager);
+    { 
+        let mut read_port = {
+            let mut port_manager =  self.port_manager.lock().expect("Failed to lock port manager");
+            port_manager.give_port()
+        };
+
+        #[cfg(debug_assertions)]
+        println!("Starting receiver loop for port ID: {}", self.id);
 
         loop 
         {
             let mut buffer = [0u8; 255];
             // TODO: Maybe combine read blocks so we don't spam the buffer with 1 byte read's?
-            if let Ok(bytes) = read_port.read(&mut buffer)
-            {
-                let block = DataBlock {
-                    id: self.id,
-                    data: buffer[..bytes].to_vec(),
-                };
 
-                self.write_to_main_bus.send(block).expect("Failed to send data block to main bus");
-            }
-            else 
+            let bytes = match read_port.read(&mut buffer)
             {
-                eprintln!("Error reading from serial port, attempting to reconnect...");
-                let mut port_manager = self.port_manager.lock().expect("Failed to lock port manager");
-                read_port = port_manager.give_port();
-                drop(port_manager);
-            }
+                Ok(bytes) => bytes,
+                Err(e) => {
+                    eprintln!("Error reading from serial port in receiver loop: {}. Attempting to reconnect...", e);
+                    let mut port_manager = self.port_manager.lock().expect("Failed to lock port manager");
+                    read_port = port_manager.give_port();
+                    continue;
+                }
+            };
+
+            let block = DataBlock {
+                id: self.id,
+                data: buffer[..bytes].to_vec(),
+            };
+
+            self.write_to_main_bus.send(block).expect("Failed to send data block to main bus");
         }
     }
 }
@@ -156,9 +165,13 @@ impl SerialConnectionSenderProcessor
 {
     pub fn process_loop(&self)
     {
-        let mut port_manager = self.port_manager.lock().expect("Failed to lock port manager");
-        let mut write_port = port_manager.give_port();
-        drop(port_manager);
+        let mut write_port = {
+            let mut port_manager = self.port_manager.lock().expect("Failed to lock port manager");
+            port_manager.give_port()
+        };
+
+        #[cfg(debug_assertions)]
+        println!("Starting sender loop for port ID: {}", self.id);
         
         loop 
         {
@@ -168,10 +181,9 @@ impl SerialConnectionSenderProcessor
             {
                 if let Err(e) = write_port.write_all(&block.data)
                 {
-                    eprintln!("Error writing to serial port: {}. Attempting to reconnect...", e);
+                    eprintln!("Error writing to serial port in sender loop: {}. Attempting to reconnect...", e);
                     let mut port_manager = self.port_manager.lock().expect("Failed to lock port manager");
                     write_port = port_manager.give_port();
-                    drop(port_manager);
                     continue;
                 }
 

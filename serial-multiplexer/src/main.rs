@@ -131,6 +131,8 @@ fn main() {
             });
     }
 
+
+    println!("Starting communication loop...");
     communicate(sender_processors, receiver_processors, senders, main_bus_receiver, &mut multiplexed_port);
 }
 
@@ -142,11 +144,15 @@ fn communicate(
     multiplexed_port: &mut TTYPort
 ) {
     sender_processors.into_iter().for_each(|f| {
-        f.process_loop();
+        std::thread::spawn(move || {
+            f.process_loop();
+        });
     });
 
     receiver_processors.into_iter().for_each(|f| {
-        f.process_loop();
+        std::thread::spawn(move || {
+            f.process_loop();
+        });
     });
     
     let mut multiplexed_port_clone = multiplexed_port.try_clone_native().unwrap();
@@ -162,10 +168,9 @@ fn communicate(
 
             multiplexed_port_clone.write_all(&mini_buff).unwrap();
             multiplexed_port_clone.write_all(&data.data).unwrap();
+
             #[cfg(debug_assertions)]
-            {
-                println!("Sent {} bytes for device {}", data.data.len(), data.id);
-            }
+            println!("Sent {} bytes for device {}", data.data.len(), data.id);
         }
     });
 
@@ -180,9 +185,7 @@ fn communicate(
             let mut buff = vec![0u8; length];
             if multiplexed_port.read_exact(&mut buff).is_ok() {
                 #[cfg(debug_assertions)]
-                {
-                    println!("Received {} bytes for device {}", length, id);
-                }
+                println!("Received {} bytes for device {}", length, id);
 
                 if let Some(port) = serial_ports.get_mut(&(id as u32))
                 {
