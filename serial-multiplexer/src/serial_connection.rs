@@ -95,7 +95,7 @@ impl SerialPortManager {
             .clone()
             .expect("Serial connection settings is unavailable, cannot recreate serial port");
 
-        'outer: loop {
+        loop {
             let serial_port = match serialport::new(&settings.device_path, settings.baud_rate)
                 .timeout(Duration::MAX)
                 .open_native()
@@ -103,7 +103,7 @@ impl SerialPortManager {
                 Ok(port) => port,
                 Err(e) => {
                     eprintln!(
-                        "Failed to open serial port {}: {}. Waiting 100ms",
+                        "Failed to open serial port {}: {}. Waiting 100ms.",
                         settings.device_path, e
                     );
                     std::thread::sleep(Duration::from_millis(100));
@@ -112,7 +112,7 @@ impl SerialPortManager {
             };
 
             self.port = serial_port;
-            break 'outer;
+            break;
         }
 
         self.index = 0;
@@ -140,7 +140,8 @@ impl SerialConnectionReceiverProcessor {
                 Ok(bytes) => bytes,
                 Err(e) => {
                     eprintln!(
-                        "Error reading from serial port in receiver loop: {}. Attempting to reconnect...",
+                        "Error reading from serial port {} in receiver loop: {}. Attempting to reconnect...",
+                        self.id,
                         e
                     );
                     let mut port_manager = self
@@ -183,10 +184,11 @@ impl SerialConnectionSenderProcessor {
                 .recv()
                 .expect("Failed to receive data block");
 
-            'outer: loop {
+            loop {
                 if let Err(e) = write_port.write_all(&block.data) {
                     eprintln!(
-                        "Error writing to serial port in sender loop: {}. Attempting to reconnect...",
+                        "Error writing to serial port {} in sender loop: {}. Attempting to reconnect...",
+                        self.id,
                         e
                     );
                     let mut port_manager = self
@@ -197,7 +199,7 @@ impl SerialConnectionSenderProcessor {
                     continue;
                 }
 
-                break 'outer;
+                break;
             }
         }
     }

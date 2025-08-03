@@ -96,7 +96,7 @@ fn main() {
             let (port_sender, port_receiver) = std::sync::mpsc::channel::<DataBlock>();
 
             let (mut master, slave) = TTYPort::pair().expect("Unable to create ptty pair");
-            master.set_timeout(Duration::from_millis(100u64)).unwrap();
+            master.set_timeout(Duration::MAX).unwrap();
 
             let name = slave.name().unwrap();
             unused.push(slave);
