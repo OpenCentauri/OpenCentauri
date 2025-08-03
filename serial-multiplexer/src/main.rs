@@ -128,10 +128,10 @@ fn main() {
                 write_to_main_bus: main_bus_sender.clone(),
             });
 
-            SerialConnectionSender {
+            senders.push(SerialConnectionSender {
                 id: entry.id,
                 port_sender,
-            };
+            });
         });
     }
 

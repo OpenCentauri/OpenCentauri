@@ -45,7 +45,7 @@ pub struct SerialConnectionSender {
 impl SerialPortManager {
     pub fn with_settings(settings: SerialConnectionSettings) -> Self {
         let port = match serialport::new(&settings.device_path, settings.baud_rate)
-            .timeout(Duration::from_secs(9999999999u64))
+            .timeout(Duration::MAX)
             .open_native()
         {
             Ok(port) => port,
@@ -77,7 +77,7 @@ impl SerialPortManager {
         #[cfg(debug_assertions)]
         println!("Giving port with index: {}", self.index);
 
-        if (self.index) >= 2 {
+        if self.index >= 2 {
             self.generate_new_set_of_ports();
         }
 
@@ -97,7 +97,7 @@ impl SerialPortManager {
 
         'outer: loop {
             let serial_port = match serialport::new(&settings.device_path, settings.baud_rate)
-                .timeout(Duration::from_secs(9999999999u64))
+                .timeout(Duration::MAX)
                 .open_native()
             {
                 Ok(port) => port,
