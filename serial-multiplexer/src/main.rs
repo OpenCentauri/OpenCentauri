@@ -1,5 +1,5 @@
 use clap::Parser;
-use serialport::{SerialPort, TTYPort};
+use serialport::{SerialPort, TTYPort, Error};
 use std::{
     collections::HashMap,
     fs::{self, create_dir, remove_file},
@@ -39,19 +39,10 @@ fn main() {
         exit(3);
     }
 
-    let mut multiplexed_port = match serialport::new(&args.device, args.baud)
-        .timeout(Duration::MAX)
-        .open_native()
-    {
-        Ok(port) => port,
-        Err(e) => {
-            eprintln!(
-                "Failed to open multiplexed serial port {}: {}",
-                args.device, e
-            );
-            exit(5);
-        }
-    };
+    let multiplexed_port_manager = SerialPortManager::with_settings(SerialConnectionSettings {
+        baud_rate: args.baud,
+        device_path: args.device,
+    });
 
     let mut unused = vec![];
     let (main_bus_sender, main_bus_receiver) = std::sync::mpsc::channel::<DataBlock>();
@@ -101,8 +92,7 @@ fn main() {
             let name = slave.name().unwrap();
             unused.push(slave);
 
-            let mut link_path = std::env::home_dir().unwrap_or(PathBuf::from("/dev"));
-
+            let mut link_path = std::env::temp_dir();
             link_path.push("vtty");
             if !link_path.exists() {
                 create_dir(&link_path).unwrap();
@@ -141,7 +131,7 @@ fn main() {
         receiver_processors,
         senders,
         main_bus_receiver,
-        &mut multiplexed_port,
+        multiplexed_port_manager,
     );
 }
 
@@ -150,8 +140,11 @@ fn communicate(
     receiver_processors: Vec<SerialConnectionReceiverProcessor>,
     senders: Vec<SerialConnectionSender>,
     main_bus_receiver: Receiver<DataBlock>,
-    multiplexed_port: &mut TTYPort,
+    multiplexed_port_manager: SerialPortManager,
 ) {
+    let multiplexed_port_manager_ref = Arc::new(Mutex::new(multiplexed_port_manager));
+    let multiplexed_port_manager_ref_clone = multiplexed_port_manager_ref.clone();
+
     sender_processors.into_iter().for_each(|f| {
         std::thread::spawn(move || {
             f.process_loop();
@@ -164,58 +157,116 @@ fn communicate(
         });
     });
 
-    let mut multiplexed_port_clone = multiplexed_port.try_clone_native().unwrap();
-
     std::thread::spawn(move || {
-        loop {
-            let data = main_bus_receiver.recv().unwrap();
-
-            let mut mini_buff = [0u8; 2];
-            mini_buff[0] = data.id as u8;
-            mini_buff[1] = data.data.len() as u8;
-
-            multiplexed_port_clone.write_all(&mini_buff).unwrap();
-            multiplexed_port_clone.write_all(&data.data).unwrap();
-
-            #[cfg(debug_assertions)]
-            println!("Sent {} bytes for device {}", data.data.len(), data.id);
-        }
+        multiplexed_port_sender(
+            multiplexed_port_manager_ref_clone,
+            main_bus_receiver,
+        );
     });
 
-    let mut serial_ports = senders
+    let serial_ports = senders
         .into_iter()
         .map(|f| (f.id as u32, f))
         .collect::<HashMap<u32, SerialConnectionSender>>();
 
+    multiplexed_port_receiver(serial_ports, multiplexed_port_manager_ref);
+}
+
+fn multiplexed_port_sender(
+    multiplexed_port_manager: Arc<Mutex<SerialPortManager>>,
+    main_bus_receiver: Receiver<DataBlock>, 
+)
+{
+    let mut multiplexed_port = give_port(&multiplexed_port_manager);
+
+    loop {
+        let data = main_bus_receiver.recv().unwrap();
+
+        let len = data.data.len();
+        let mut buff = [0u8; 2 + 255];
+        buff[0] = data.id as u8;
+        buff[1] = len as u8;
+        buff[2..(2 + len)].copy_from_slice(&data.data);
+
+        if let Err(e) = multiplexed_port.write_all(&buff)
+        {
+            // Something horrible happened, the multiplexed port is likely dead. Dropping packets until port is alive again...
+            eprintln!("Failed to write to multiplexed port: {}", e);
+            multiplexed_port = give_port(&multiplexed_port_manager);
+
+            while main_bus_receiver.try_recv().is_ok() {
+                // Clear the main bus receiver
+            }
+
+            continue;
+        }
+
+        #[cfg(debug_assertions)]
+        println!("Sent {} bytes for device {}", data.data.len(), data.id);
+    };    
+}
+
+fn multiplexed_port_receiver(
+    serial_connection_senders: HashMap<u32, SerialConnectionSender>,
+    multiplexed_port_manager: Arc<Mutex<SerialPortManager>>
+)
+{
+    let mut multiplexed_port = give_port(&multiplexed_port_manager);
+    let mut senders = serial_connection_senders;
+
     loop {
         let mut mini_buff = [0u8; 2];
-        if multiplexed_port.read_exact(&mut mini_buff).is_ok() {
-            let id = mini_buff[0];
-            let length = mini_buff[1] as usize;
 
-            let mut buff = vec![0u8; length];
-            if multiplexed_port.read_exact(&mut buff).is_ok() {
-                #[cfg(debug_assertions)]
-                println!("Received {} bytes for device {}", length, id);
+        if let Err(e) = multiplexed_port.read_exact(&mut mini_buff)
+        {
+            eprintln!("Failed to read from multiplexed port (reading header): {}", e);
+            multiplexed_port = give_port(&multiplexed_port_manager);
+            continue;
+        }
 
-                if let Some(port) = serial_ports.get_mut(&(id as u32)) {
-                    port.port_sender
-                        .send(DataBlock { id, data: buff })
-                        .expect("Failed to send data block to port sender");
-                } else {
-                    eprintln!(
-                        "Device with id {} does not exist. Assuming we're not in sync! Waiting 1s and trying again...",
-                        id
-                    );
-                    multiplexed_port
-                        .clear(serialport::ClearBuffer::Input)
-                        .unwrap();
-                    std::thread::sleep(Duration::from_secs(1u64));
-                    multiplexed_port
-                        .clear(serialport::ClearBuffer::Input)
-                        .unwrap();
-                }
-            }
+        let id = mini_buff[0];
+        let length = mini_buff[1] as usize;
+
+        if length == 0 {
+            let reason = format!("Received zero-length data for device {}", id);
+            clear_buff_with_error_handling(&mut multiplexed_port, &reason, &multiplexed_port_manager);
+            continue;
+        }
+
+        let mut buff = vec![0u8; length];
+
+        if let Err(e) = multiplexed_port.read_exact(&mut buff) {
+            eprintln!("Failed to read from multiplexed port (reading data): {}", e);
+            multiplexed_port = give_port(&multiplexed_port_manager);
+            continue;
+        }
+
+        #[cfg(debug_assertions)]
+        println!("Received {} bytes for device {}", length, id);
+
+        if let Some(port) = senders.get_mut(&(id as u32)) {
+            port.port_sender
+                .send(DataBlock { id, data: buff })
+                .expect("Failed to send data block to port sender");
+        } else {
+            let reason = format!("Device with id {} does not exist", id);
+            clear_buff_with_error_handling(&mut multiplexed_port, &reason, &multiplexed_port_manager);        
         }
     }
+}
+
+fn clear_buffer(port : &TTYPort, reason : &str) -> Result<(), Error>
+{
+    eprintln!("{}. Assuming we're not in sync! Waiting 1s and trying again...", reason);
+    port.clear(serialport::ClearBuffer::Input)?;
+    std::thread::sleep(Duration::from_secs(1u64));
+    port.clear(serialport::ClearBuffer::Input)
+}
+
+fn clear_buff_with_error_handling(port : &mut TTYPort, reason : &str, port_manager: &Arc<Mutex<SerialPortManager>>)
+{
+    if let Err(e) = clear_buffer(port, &reason) {
+        eprintln!("Failed to clear buffer: {}", e);
+        *port = give_port(port_manager);
+    }       
 }

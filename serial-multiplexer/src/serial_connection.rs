@@ -96,6 +96,7 @@ impl SerialPortManager {
             .expect("Serial connection settings is unavailable, cannot recreate serial port");
 
         loop {
+            // TODO: Drop old serial port before opening new one.
             let serial_port = match serialport::new(&settings.device_path, settings.baud_rate)
                 .timeout(Duration::MAX)
                 .open_native()
@@ -121,13 +122,7 @@ impl SerialPortManager {
 
 impl SerialConnectionReceiverProcessor {
     pub fn process_loop(&self) {
-        let mut read_port = {
-            let mut port_manager = self
-                .port_manager
-                .lock()
-                .expect("Failed to lock port manager");
-            port_manager.give_port()
-        };
+        let mut read_port = give_port(&self.port_manager);
 
         #[cfg(debug_assertions)]
         println!("Starting receiver loop for port ID: {}", self.id);
@@ -144,11 +139,7 @@ impl SerialConnectionReceiverProcessor {
                         self.id,
                         e
                     );
-                    let mut port_manager = self
-                        .port_manager
-                        .lock()
-                        .expect("Failed to lock port manager");
-                    read_port = port_manager.give_port();
+                    read_port = give_port(&self.port_manager);
                     continue;
                 }
             };
@@ -167,13 +158,7 @@ impl SerialConnectionReceiverProcessor {
 
 impl SerialConnectionSenderProcessor {
     pub fn process_loop(&self) {
-        let mut write_port = {
-            let mut port_manager = self
-                .port_manager
-                .lock()
-                .expect("Failed to lock port manager");
-            port_manager.give_port()
-        };
+        let mut write_port = give_port(&self.port_manager);
 
         #[cfg(debug_assertions)]
         println!("Starting sender loop for port ID: {}", self.id);
@@ -191,11 +176,7 @@ impl SerialConnectionSenderProcessor {
                         self.id,
                         e
                     );
-                    let mut port_manager = self
-                        .port_manager
-                        .lock()
-                        .expect("Failed to lock port manager");
-                    write_port = port_manager.give_port();
+                    write_port = give_port(&self.port_manager);
                     continue;
                 }
 
@@ -203,4 +184,13 @@ impl SerialConnectionSenderProcessor {
             }
         }
     }
+}
+
+pub fn give_port(
+    port_manager: &Arc<Mutex<SerialPortManager>>,
+) -> TTYPort {
+    port_manager
+        .lock()
+        .expect("Failed to lock port manager")
+        .give_port()
 }
