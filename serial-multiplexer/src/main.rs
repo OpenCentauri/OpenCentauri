@@ -1,5 +1,5 @@
 use clap::Parser;
-use serialport::{SerialPort, TTYPort, Error};
+use serialport::{Error, SerialPort, TTYPort};
 use std::{
     collections::HashMap,
     fs::{self, create_dir, remove_file},
@@ -158,10 +158,7 @@ fn communicate(
     });
 
     std::thread::spawn(move || {
-        multiplexed_port_sender(
-            multiplexed_port_manager_ref_clone,
-            main_bus_receiver,
-        );
+        multiplexed_port_sender(multiplexed_port_manager_ref_clone, main_bus_receiver);
     });
 
     let serial_ports = senders
@@ -174,9 +171,8 @@ fn communicate(
 
 fn multiplexed_port_sender(
     multiplexed_port_manager: Arc<Mutex<SerialPortManager>>,
-    main_bus_receiver: Receiver<DataBlock>, 
-)
-{
+    main_bus_receiver: Receiver<DataBlock>,
+) {
     let mut multiplexed_port = give_port(&multiplexed_port_manager);
 
     loop {
@@ -188,8 +184,7 @@ fn multiplexed_port_sender(
         buff[1] = len as u8;
         buff[2..(2 + len)].copy_from_slice(&data.data);
 
-        if let Err(e) = multiplexed_port.write_all(&buff)
-        {
+        if let Err(e) = multiplexed_port.write_all(&buff) {
             // Something horrible happened, the multiplexed port is likely dead. Dropping packets until port is alive again...
             eprintln!("Failed to write to multiplexed port: {}", e);
             multiplexed_port = give_port(&multiplexed_port_manager);
@@ -203,23 +198,24 @@ fn multiplexed_port_sender(
 
         #[cfg(debug_assertions)]
         println!("Sent {} bytes for device {}", data.data.len(), data.id);
-    };    
+    }
 }
 
 fn multiplexed_port_receiver(
     serial_connection_senders: HashMap<u32, SerialConnectionSender>,
-    multiplexed_port_manager: Arc<Mutex<SerialPortManager>>
-)
-{
+    multiplexed_port_manager: Arc<Mutex<SerialPortManager>>,
+) {
     let mut multiplexed_port = give_port(&multiplexed_port_manager);
     let mut senders = serial_connection_senders;
 
     loop {
         let mut mini_buff = [0u8; 2];
 
-        if let Err(e) = multiplexed_port.read_exact(&mut mini_buff)
-        {
-            eprintln!("Failed to read from multiplexed port (reading header): {}", e);
+        if let Err(e) = multiplexed_port.read_exact(&mut mini_buff) {
+            eprintln!(
+                "Failed to read from multiplexed port (reading header): {}",
+                e
+            );
             multiplexed_port = give_port(&multiplexed_port_manager);
             continue;
         }
@@ -229,7 +225,11 @@ fn multiplexed_port_receiver(
 
         if length == 0 {
             let reason = format!("Received zero-length data for device {}", id);
-            clear_buff_with_error_handling(&mut multiplexed_port, &reason, &multiplexed_port_manager);
+            clear_buff_with_error_handling(
+                &mut multiplexed_port,
+                &reason,
+                &multiplexed_port_manager,
+            );
             continue;
         }
 
@@ -250,23 +250,32 @@ fn multiplexed_port_receiver(
                 .expect("Failed to send data block to port sender");
         } else {
             let reason = format!("Device with id {} does not exist", id);
-            clear_buff_with_error_handling(&mut multiplexed_port, &reason, &multiplexed_port_manager);        
+            clear_buff_with_error_handling(
+                &mut multiplexed_port,
+                &reason,
+                &multiplexed_port_manager,
+            );
         }
     }
 }
 
-fn clear_buffer(port : &TTYPort, reason : &str) -> Result<(), Error>
-{
-    eprintln!("{}. Assuming we're not in sync! Waiting 1s and trying again...", reason);
+fn clear_buffer(port: &TTYPort, reason: &str) -> Result<(), Error> {
+    eprintln!(
+        "{}. Assuming we're not in sync! Waiting 1s and trying again...",
+        reason
+    );
     port.clear(serialport::ClearBuffer::Input)?;
     std::thread::sleep(Duration::from_secs(1u64));
     port.clear(serialport::ClearBuffer::Input)
 }
 
-fn clear_buff_with_error_handling(port : &mut TTYPort, reason : &str, port_manager: &Arc<Mutex<SerialPortManager>>)
-{
+fn clear_buff_with_error_handling(
+    port: &mut TTYPort,
+    reason: &str,
+    port_manager: &Arc<Mutex<SerialPortManager>>,
+) {
     if let Err(e) = clear_buffer(port, &reason) {
         eprintln!("Failed to clear buffer: {}", e);
         *port = give_port(port_manager);
-    }       
+    }
 }

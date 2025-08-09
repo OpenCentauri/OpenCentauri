@@ -136,8 +136,7 @@ impl SerialConnectionReceiverProcessor {
                 Err(e) => {
                     eprintln!(
                         "Error reading from serial port {} in receiver loop: {}. Attempting to reconnect...",
-                        self.id,
-                        e
+                        self.id, e
                     );
                     read_port = give_port(&self.port_manager);
                     continue;
@@ -173,8 +172,7 @@ impl SerialConnectionSenderProcessor {
                 if let Err(e) = write_port.write_all(&block.data) {
                     eprintln!(
                         "Error writing to serial port {} in sender loop: {}. Attempting to reconnect...",
-                        self.id,
-                        e
+                        self.id, e
                     );
                     write_port = give_port(&self.port_manager);
                     continue;
@@ -186,9 +184,7 @@ impl SerialConnectionSenderProcessor {
     }
 }
 
-pub fn give_port(
-    port_manager: &Arc<Mutex<SerialPortManager>>,
-) -> TTYPort {
+pub fn give_port(port_manager: &Arc<Mutex<SerialPortManager>>) -> TTYPort {
     port_manager
         .lock()
         .expect("Failed to lock port manager")
