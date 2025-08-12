@@ -27,13 +27,17 @@ nav:
     - Camera: machine/camera.md
     - Bed: machine/bed.md
     - Screen: machine/screen.md
+    - MCU Architecture: machine/mcu-architecture.md
     - EMMC Tap Points: machine/emmc-tapping.md
-  - Software: 
+  - Software:
     - Software: software/index.md
     - Partitions: software/partitions.md
     - Updates: software/updates.md
     - API: software/api.md
     - Custom gcode: software/custom-gcode.md
+    - Hidden Commands: software/hidden-commands.md
+    - DSP Communication: software/dsp-communication.md
+    - Firmware Internals: software/firmware-internals.md
     - Embedded Firmware: software/embedded-firmware.md
     - FEL: software/FEL-mode.md
   - Klipper via mainboard replacement:
