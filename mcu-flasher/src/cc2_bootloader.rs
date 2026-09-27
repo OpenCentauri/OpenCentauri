@@ -1,7 +1,7 @@
 // Protocol from src/bootloader_com.c in https://github.com/elegooofficial/CentauriCarbon2
 
 use std::{
-    fmt, io,
+    io,
     time::{Duration, Instant},
 };
 
@@ -41,52 +41,23 @@ const PROGRAM_TIMEOUT: Duration = Duration::from_secs(2);
 // already blanked, which is fast, plus at most one programmed page.
 const ERASE_STEP: u32 = 2048;
 
-#[derive(Debug)]
+#[derive(Debug, thiserror::Error)]
 pub enum Error {
-    Serial(serialport::Error),
-    Io(io::Error),
+    #[error("serial error: {0}")]
+    Serial(#[from] serialport::Error),
+    #[error("I/O error: {0}")]
+    Io(#[from] io::Error),
+    #[error("no response from the bootloader")]
     NotInBootloader,
+    #[error("no response to command {command:#04x}")]
     NoResponse { command: u8 },
+    #[error("erase rejected: asked for {requested} bytes, MCU erased {erased}")]
     EraseRejected { requested: u32, erased: u32 },
+    #[error("program rejected at offset {offset:#x}: MCU wrote {written} bytes")]
     ProgramRejected { offset: u32, written: u32 },
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Error::Serial(err) => write!(f, "serial error: {}", err),
-            Error::Io(err) => write!(f, "I/O error: {}", err),
-            Error::NotInBootloader => write!(f, "no response from the bootloader"),
-            Error::NoResponse { command } => {
-                write!(f, "no response to command {:#04x}", command)
-            }
-            Error::EraseRejected { requested, erased } => write!(
-                f,
-                "erase rejected: asked for {} bytes, MCU erased {}",
-                requested, erased
-            ),
-            Error::ProgramRejected { offset, written } => write!(
-                f,
-                "program rejected at offset {:#x}: MCU wrote {} bytes",
-                offset, written
-            ),
-        }
-    }
-}
-
-impl From<serialport::Error> for Error {
-    fn from(err: serialport::Error) -> Error {
-        Error::Serial(err)
-    }
-}
-
-impl From<io::Error> for Error {
-    fn from(err: io::Error) -> Error {
-        Error::Io(err)
-    }
-}
 
 /// Catch the board in its bootloader and write `image` to the application
 /// partition, then start it.
@@ -179,7 +150,7 @@ fn flash(port: &mut dyn SerialPort, image: &[u8]) -> Result<()> {
 
 /// JUMP is not acknowledged - the MCU jumps ~1ms later.
 fn jump_to_app(port: &mut dyn SerialPort) -> Result<()> {
-    write_packet(port, CMD_JUMP_TO_APP, &[])
+    write_frame(port, CMD_JUMP_TO_APP, &[])
 }
 
 fn require(payload: Option<Vec<u8>>, command: u8) -> Result<Vec<u8>> {
@@ -203,7 +174,7 @@ fn transact(
     // Anything already buffered predates this request, so it cannot be the
     // response.
     let _ = port.clear(serialport::ClearBuffer::Input);
-    write_packet(port, command, payload)?;
+    write_frame(port, command, payload)?;
 
     let deadline = Instant::now() + timeout;
     let mut received = Vec::new();
@@ -228,21 +199,21 @@ fn transact(
     }
 }
 
-fn write_packet(port: &mut dyn SerialPort, command: u8, payload: &[u8]) -> Result<()> {
-    port.write_all(&packet(command, payload))?;
+fn write_frame(port: &mut dyn SerialPort, command: u8, payload: &[u8]) -> Result<()> {
+    port.write_all(&frame(command, payload))?;
     port.flush()?;
     Ok(())
 }
 
-fn packet(command: u8, payload: &[u8]) -> Vec<u8> {
+fn frame(command: u8, payload: &[u8]) -> Vec<u8> {
     let length = u16::try_from(payload.len()).expect("CC2 payload is too large");
-    let mut packet = Vec::with_capacity(FRAME_OVERHEAD + payload.len());
-    packet.extend_from_slice(&FRAME_MAGIC);
-    packet.push(command);
-    packet.extend_from_slice(&length.to_be_bytes());
-    packet.extend_from_slice(payload);
-    packet.extend_from_slice(&calc_crc(payload).to_be_bytes());
-    packet
+    let mut frame = Vec::with_capacity(FRAME_OVERHEAD + payload.len());
+    frame.extend_from_slice(&FRAME_MAGIC);
+    frame.push(command);
+    frame.extend_from_slice(&length.to_be_bytes());
+    frame.extend_from_slice(payload);
+    frame.extend_from_slice(&calc_crc(payload).to_be_bytes());
+    frame
 }
 
 /// Find the first complete, CRC-valid frame in `data`.

@@ -129,8 +129,15 @@ fn main() {
         return;
     }
 
+    let file_name = PathBuf::from(&args.firmware)
+        .file_name()
+        .expect("Failed to get file name")
+        .to_string_lossy()
+        .to_string();
+
+    let mut file_bytes = fs::read(&args.firmware).expect("Failed to read firmware file");
+
     if args.cc2 {
-        let file_bytes = fs::read(&args.firmware).expect("Failed to read firmware file");
         let window = std::time::Duration::from_secs(args.timeout as u64);
 
         println!(
@@ -144,14 +151,6 @@ fn main() {
         }
         return;
     }
-
-    let file_name = PathBuf::from(&args.firmware)
-        .file_name()
-        .expect("Failed to get file name")
-        .to_string_lossy()
-        .to_string();
-
-    let mut file_bytes = std::fs::read(&args.firmware).expect("Failed to read firmware file");
 
     let mut file_size_in_bytes = file_bytes.len() as u64;
 
