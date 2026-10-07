@@ -4,66 +4,6 @@
         <loc>https://docs.opencentauri.cc/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/mainboard/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/fel-uart-setup/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/emmc-tapping/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/toolhead/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/camera/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/bed/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/screen/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/misc/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/CANVAS/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC1/documentation/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/mainboard/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/toolhead/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/camera/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/bed/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/screen/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/misc/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/CANVAS/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/hardware/CC2/documentation/</loc>
-      </url>
-      <url>
         <loc>https://docs.opencentauri.cc/hardware/CANVAS/CANVAS_components/</loc>
       </url>
       <url>
@@ -73,40 +13,76 @@
         <loc>https://docs.opencentauri.cc/hardware/CANVAS/CANVAS_unreleased/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/partitions/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/CANVAS/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/updates/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/bed/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/updates-cc2/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/camera/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/api/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/documentation/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/custom-gcode/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/emmc-tapping/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/embedded-firmware/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/fel-uart-setup/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/software/FEL-mode/</loc>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/mainboard/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/misc/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/screen/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC1/toolhead/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/CANVAS/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/bed/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/camera/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/documentation/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/mainboard/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/misc/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/screen/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/hardware/CC2/toolhead/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/ams/</loc>
       </url>
       <url>
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/cosmos/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/install/</loc>
-      </url>
-      <url>
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/features/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/ams/</loc>
+        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/install/</loc>
       </url>
       <url>
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/</loc>
@@ -115,7 +91,16 @@
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/bed/</loc>
       </url>
       <url>
+        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/canvas/</loc>
+      </url>
+      <url>
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/printing/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/questions/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/recovery/</loc>
       </url>
       <url>
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/stability/</loc>
@@ -124,28 +109,13 @@
         <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/z-offset/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/canvas/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/recovery/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/klipper-conversion/cosmos/troubleshooting/questions/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/patched-firmware/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/patched-firmware/install/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/patched-firmware/features/</loc>
-      </url>
-      <url>
-        <loc>https://docs.opencentauri.cc/patched-firmware/modified_start_end_machine_gcode/</loc>
-      </url>
-      <url>
         <loc>https://docs.opencentauri.cc/klipper-conversion/klipper-via-mainboard-replacement/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/mods/camera_mods/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/mods/light_mods/</loc>
       </url>
       <url>
         <loc>https://docs.opencentauri.cc/mods/machine_mods/</loc>
@@ -157,9 +127,39 @@
         <loc>https://docs.opencentauri.cc/mods/printable_mods/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/mods/light_mods/</loc>
+        <loc>https://docs.opencentauri.cc/patched-firmware/</loc>
       </url>
       <url>
-        <loc>https://docs.opencentauri.cc/mods/camera_mods/</loc>
+        <loc>https://docs.opencentauri.cc/patched-firmware/features/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/patched-firmware/install/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/patched-firmware/modified_start_end_machine_gcode/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/FEL-mode/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/api/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/custom-gcode/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/embedded-firmware/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/partitions/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/updates-cc2/</loc>
+      </url>
+      <url>
+        <loc>https://docs.opencentauri.cc/software/updates/</loc>
       </url>
 </urlset>
