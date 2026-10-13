@@ -83,8 +83,9 @@ SET_PRINT_STATS_INFO TOTAL_LAYER=[total_layer_count]
 Machine end G-code:
 
 ```gcode
-;===== date: 20250109 =====================
+;===== date: 20260829 =====================
 M400 ; wait for buffer to clear
+M8212 ; Turn off light
 M140 S0 ;Turn-off bed
 M106 S255 ;Cooling nozzle
 M83
@@ -107,5 +108,4 @@ M106 S0 ; turn off fan
 M106 P2 S0 ; turn off remote part cooling fan
 M106 P3 S0 ; turn off chamber cooling fan
 M84 ;Disable all steppers
-M8212 ; Turn off light
 ```
