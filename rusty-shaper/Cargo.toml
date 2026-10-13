@@ -1,0 +1,42 @@
+[package]
+name = "rusty-shaper"
+version = "0.1.0"
+edition = "2024"
+authors = ["Paul Swenson <paul@swenson.co>"]
+description = "Low-RAM Rust input shaper calibration for 3D printers"
+license = "GPL-3.0"
+repository = "https://github.com/OpenCentauri/OpenCentauri"
+
+[dependencies]
+clap = { version = "4.5", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+csv = "1.4"
+rustfft = "6.4"
+thiserror = "2.0"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+
+[dev-dependencies]
+approx = "0.5"
+flate2 = "1.1"
+tempfile = "3.8"
+
+[profile.release]
+strip = true
+lto = true
+opt-level = "z"
+codegen-units = 1
+
+[profile.dev]
+opt-level = 1
+
+[[bin]]
+name = "rusty-shaper"
+path = "src/main.rs"
+
+[lib]
+name = "rusty_shaper"
+path = "src/lib.rs"
+# rlib  – used by the binary (unchanged)
+# cdylib – produces librusty_shaper.so for Python ctypes / Kalico
+crate-type = ["rlib", "cdylib"]

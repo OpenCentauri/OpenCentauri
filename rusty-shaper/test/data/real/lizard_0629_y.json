@@ -1,0 +1,46 @@
+{
+  "recommended": {
+    "name": "zv",
+    "freq": 51.4
+  },
+  "all_shapers": [
+    {
+      "name": "zv",
+      "freq": 51.4,
+      "vibrs": 0.008,
+      "smoothing": 0.065,
+      "max_accel": 10300.0
+    },
+    {
+      "name": "mzv",
+      "freq": 52.6,
+      "vibrs": 0.0,
+      "smoothing": 0.074,
+      "max_accel": 8200.0
+    },
+    {
+      "name": "ei",
+      "freq": 62.8,
+      "vibrs": 0.0,
+      "smoothing": 0.082,
+      "max_accel": 7300.0
+    },
+    {
+      "name": "2hump_ei",
+      "freq": 78.0,
+      "vibrs": 0.0,
+      "smoothing": 0.089,
+      "max_accel": 6800.0
+    },
+    {
+      "name": "3hump_ei",
+      "freq": 93.6,
+      "vibrs": 0.0,
+      "smoothing": 0.094,
+      "max_accel": 6400.0
+    }
+  ],
+  "source": "kalico",
+  "kalico_rev": "693cd75b",
+  "input_csv": "raw_data_y_lis2dw_20260629_174451.csv"
+}
