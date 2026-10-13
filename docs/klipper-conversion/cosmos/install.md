@@ -5,7 +5,7 @@
 
 !!! Danger "**Stop: Before you add any plugins**"
 
-    The stock mainboard is extremely resource limited and there is currently very little overhead to run any plugins, packages, or features not in standard klipper/kalico. Do not attempt to install others unless you _really_ know what you are doing!
+    The stock mainboard is extremely resource limited and there is currently very little headroom to run any plugins, packages, or features not in standard klipper/kalico. Do not attempt to install others unless you _really_ know what you are doing!
 
 ## Installation
 
