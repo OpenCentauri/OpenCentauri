@@ -1,8 +1,10 @@
 # Common questions
 
-??? question "**Why isn't adaptive meshing on?**"
+??? question "**How do I enable adaptive meshing?**"
 
-    Adaptive meshing is not enabled by default. Turn it on in `cosmos.conf`, in the config editor next to `printer.cfg`:
+    Adaptive meshing is not enabled by default. If you always print with the same material and you don't swap build plates often then any benefit it provides may be negligible and it will slow down printing times.
+    
+    If you want to enable it go to `cosmos.conf`, in the config editor next to `printer.cfg`:
 
     ```
     [klipper]
