@@ -2838,7 +2838,11 @@
 <p class="admonition-title">Note</p>
 <p>Because COSMOS is actively developed, it is important to read <a href="https://github.com/OpenCentauri/cosmos/releases">the changelogs</a> on GitHub before installing a new version. They may contain additional instructions for migration from an old version.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Online</label><label for="__tabbed_1_2">Local/Offline</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Centauri Carbon 1</label><label for="__tabbed_1_2">Centauri Carbon 2 / Centauri 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install using the OpenCentauri installer:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Online</label><label for="__tabbed_2_2">Local/Offline</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="admonition warning">
@@ -2873,10 +2877,41 @@
 </div>
 </div>
 </div>
+</div>
+<div class="tabbed-block">
+<ol>
+<li>Download the OTA upgrade file for your model from the <a href="https://github.com/OpenCentauri/cosmos/releases/latest">latest COSMOS release</a>:<ul>
+<li><strong>Centauri Carbon 2 / Centauri Carbon 2 Combo:</strong> the <code>cc2_eeb001_*.zip.sig</code> file.</li>
+<li><strong>Centauri 2 / Centauri 2 Combo:</strong> the <code>c2_eeb001_*.zip.sig</code> file.</li>
+</ul>
+</li>
+<li>Place the <code>.zip.sig</code> file on a FAT32-formatted USB drive.</li>
+<li>Eject the USB drive from your computer and insert it into the printer.</li>
+<li>On the printer, open the offline updates menu and install the COSMOS update from the USB drive.</li>
+<li>After the printer reboots into COSMOS, copy <code>ELEGOO.txt</code> from the USB drive to a safe location on your computer.</li>
+<li>Complete the calibration and import the CC2 slicer profile described below before printing.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Keep your Elegoo credentials backup</p>
+<p>Installation saves the printer's Elegoo credentials to <code>ELEGOO.txt</code> on the USB drive. If the internal storage is ever erased, this file is needed to restore Elegoo cloud connectivity when returning to stock firmware. Keep it safe and do not share it.</p>
+</div>
+</div>
+</div>
+</div>
 <h2 id="after-installation">After installation</h2>
 <p>Connect to the printer's IP address in a web browser to open its web interface. Run <code>CHECK_CALIBRATION</code> from the Macros section, then select <code>Calibrate All</code>. This calibrates resonance compensation, the extruder PID, the load cells, the Z offset, and the bed mesh. If the automatic routine cannot finish, see the <a href=".././features/#manual-calibration">manual calibration steps</a>.</p>
 <h3 id="required-orcaslicer-profile">Required OrcaSlicer profile</h3>
-<p>From COSMOS 26.07.0 onwards, the <a href="https://cloud.orcaslicer.com/b/3fad3c38f25f">OpenCentauri COSMOS OrcaSlicer profile</a> is required due to changes in the machine start and end G-code. Import and use the latest version of the profile before printing.</p>
+<p>Import and use the latest COSMOS profile for your printer before printing. These profiles provide the required machine start and end G-code.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Centauri Carbon 1</label><label for="__tabbed_3_2">Centauri Carbon 2 / Centauri 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Use the <a href="https://cloud.orcaslicer.com/b/3fad3c38f25f">OpenCentauri COSMOS OrcaSlicer profile for CC1</a>, required from COSMOS 26.07.0 onwards.</p>
+</div>
+<div class="tabbed-block">
+<p>Use the <a href="https://cloud.orcaslicer.com/b/331b32d95aab">OpenCentauri COSMOS OrcaSlicer profile for CC2</a>, required from COSMOS 26.10.0 onwards.</p>
+</div>
+</div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Old profiles are rejected</p>
 <p>Older machine G-code that calls <code>M729</code> or <code>M8213</code> triggers an emergency stop and displays a message telling you to use the COSMOS start and end machine G-code. Update the profile before trying to print again.</p>
@@ -2889,8 +2924,9 @@
 <li>Hostname, IP or URL: your printer's IP address</li>
 </ul>
 <h2 id="update">Update</h2>
+<p>These methods apply to printers already running COSMOS. For a first installation on stock firmware, use the model-specific instructions above.</p>
 <p>By default, COSMOS checks for updates shortly after startup while the printer is idle. When an update is available, the printer displays an <code>Update Available</code> prompt with an <code>Update Now</code> button. The automatic check and release channel can be changed in <a href=".././features/#cosmos-settings"><code>cosmos.conf</code></a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Via Screen (Online)</label><label for="__tabbed_2_2">Via SSH (Online)</label><label for="__tabbed_2_3">Via USB (Offline)</label><label for="__tabbed_2_4">Via SSH (Manual, Offline)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Via Screen (Online)</label><label for="__tabbed_4_2">Via SSH (Online)</label><label for="__tabbed_4_3">Via USB (Offline)</label><label for="__tabbed_4_4">Via SSH (Manual, Offline)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ol>
@@ -2908,7 +2944,11 @@
 </div>
 <div class="tabbed-block">
 <ol>
-<li><a href="https://github.com/OpenCentauri/cosmos/releases/latest/download/update.swu">Download the latest COSMOS update.swu</a>.</li>
+<li>Download the latest COSMOS SWU for your printer:<ul>
+<li><strong>CC1:</strong> <a href="https://github.com/OpenCentauri/cosmos/releases/latest/download/cosmos-centauri-carbon-1.swu"><code>cosmos-centauri-carbon-1.swu</code></a>.</li>
+<li><strong>CC2 / C2:</strong> <a href="https://github.com/OpenCentauri/cosmos/releases/latest/download/cosmos-centauri-carbon-2.swu"><code>cosmos-centauri-carbon-2.swu</code></a>.</li>
+</ul>
+</li>
 <li>Rename it to <code>emergency.swu</code></li>
 <li>Insert a fat32-formatted thumbdrive into your pc.</li>
 <li>Put <code>emergency.swu</code> on the root of the thumbdrive.</li>
@@ -2917,7 +2957,7 @@
 </ol>
 </div>
 <div class="tabbed-block">
-<p>You can also flash an arbitrary .swu via SSH. Just place the .swu somewhere accessible to the machine (like in /user-resource via SCP/SSH), SSH into your machine, then run <code>flash /path/to/.swu</code>.</p>
+<p>Download the <code>.swu</code> for your printer model using the links in the USB tab above. You can also flash it via SSH. Just place the .swu somewhere accessible to the machine (like in /user-resource via SCP/SSH), SSH into your machine, then run <code>flash /path/to/.swu</code>.</p>
 </div>
 </div>
 </div>
@@ -2926,7 +2966,7 @@
 <p class="admonition-title">Warning</p>
 <p>Please do not try to flash an official .swu or OpenCentauri patched .swu directly. This will skip downgrading the toolhead/bed and will cause a brick!</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Via Screen (Online)</label><label for="__tabbed_3_2">Via SSH (Online)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Via Screen (Online)</label><label for="__tabbed_5_2">Via SSH (Online)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ol>
