@@ -69,9 +69,9 @@ Read about [AMS support](./ams.md) for multi-color printing.
 
     [Open an issue on GitHub](https://github.com/OpenCentauri/cosmos/issues) and provide a brief description of what happened and the steps to reproduce it. Alternatively you can also drop by the #COSMOS_development channel on the [Opencentauri Discord server](https://discord.gg/t6Cft3wNJ3) to let us know.
 
-??? question "**Will COSMOS be available for the Centauri Carbon 2?**"
+??? question "**Does COSMOS support the Centauri Carbon 2?**"
 
-    Maybe, but developer efforts are focused on the CC1 for the time being
+    Yes. COSMOS 26.10.0 adds support for Centauri 2, Centauri 2 Combo, Centauri Carbon 2, and Centauri Carbon 2 Combo. Follow the CC2 / C2 tab in the [installation instructions](./install.md).
 
 ??? question "**Will COSMOS work with the CANVAS upgrade for the Centauri Carbon 1?**"
 
