@@ -16,7 +16,7 @@ Work through these in order — the mechanical causes are the most common, and n
     LOAD_CELL_CALIBRATE TARE=TRUE SAVE=TRUE
     ```
 
-4. **Check `counts_per_gram`.** It should be near `105`. A value far from that usually means a load cell is dodgy rather than that the calibration is wrong, so recalibrating is unlikely to help.
+4. **Check `counts_per_gram`.** It should be near `105` for CC1 and `25` for CC2. A value far from that usually means a load cell is dodgy rather than that the calibration is wrong, so recalibrating is unlikely to help.
 5. **Check the channels individually.** Run `LOAD_CELL_READ` with an empty bed, then again with a 1-2 kg weight in the middle. All four channels should move in the same direction by broadly similar amounts. A channel with the wrong sign, or one that barely moves, points at a misinstalled or failed cell, which calibration cannot correct.
 6. **Try a longer probe pullback.** If the tap fails due to `TAP_PULLBACK_TOO_SHORT` error in `klippy.log`, override the shipped `0.4` in `printer.cfg`:
 
@@ -85,7 +85,7 @@ Try the steps above first, recalibration is worth doing once re-taring has faile
 
     `LOAD_CELL_READ` reports the current force and how much of the sensor range is in use. `LOAD_CELL_DIAGNOSTIC` collects samples and reports sensor health, which is worth running if you suspect a wiring fault rather than a calibration problem.
 
-Your `counts_per_gram` should come out near `105`. If it lands far from that, suspect a load cell rather than the calibration, and ask for assistance on the [OC Discord server](https://discord.gg/t6Cft3wNJ3).
+Your `counts_per_gram` should come out near `105` for CC1 and `25` for CC2. If it lands far from that, suspect a load cell rather than the calibration, and ask for assistance on the [OC Discord server](https://discord.gg/t6Cft3wNJ3).
 
 ## Redoing the bed mesh
 
