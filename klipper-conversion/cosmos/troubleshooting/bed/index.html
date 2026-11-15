@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="zensical-0.0.74">
+      <meta name="generator" content="zensical-0.1.1">
     
     
       
@@ -35,7 +35,7 @@
       
         
       
-      <link rel="stylesheet" href="../../../../assets/stylesheets/classic/main.94dd801d.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/classic/main.0006804e.min.css">
       
         
           
@@ -2804,7 +2804,7 @@
 </code></pre></div>
 </li>
 <li>
-<p><strong>Check <code>counts_per_gram</code>.</strong> It should be near <code>105</code>. A value far from that usually means a load cell is dodgy rather than that the calibration is wrong, so recalibrating is unlikely to help.</p>
+<p><strong>Check <code>counts_per_gram</code>.</strong> It should be near <code>105</code> for CC1 and <code>25</code> for CC2. A value far from that usually means a load cell is dodgy rather than that the calibration is wrong, so recalibrating is unlikely to help.</p>
 </li>
 <li><strong>Check the channels individually.</strong> Run <code>LOAD_CELL_READ</code> with an empty bed, then again with a 1-2 kg weight in the middle. All four channels should move in the same direction by broadly similar amounts. A channel with the wrong sign, or one that barely moves, points at a misinstalled or failed cell, which calibration cannot correct.</li>
 <li>
@@ -2864,7 +2864,7 @@ pullback_distance: 0.6
 <p class="admonition-title">Checking the result</p>
 <p><code>LOAD_CELL_READ</code> reports the current force and how much of the sensor range is in use. <code>LOAD_CELL_DIAGNOSTIC</code> collects samples and reports sensor health, which is worth running if you suspect a wiring fault rather than a calibration problem.</p>
 </div>
-<p>Your <code>counts_per_gram</code> should come out near <code>105</code>. If it lands far from that, suspect a load cell rather than the calibration, and ask for assistance on the <a href="https://discord.gg/t6Cft3wNJ3">OC Discord server</a>.</p>
+<p>Your <code>counts_per_gram</code> should come out near <code>105</code> for CC1 and <code>25</code> for CC2. If it lands far from that, suspect a load cell rather than the calibration, and ask for assistance on the <a href="https://discord.gg/t6Cft3wNJ3">OC Discord server</a>.</p>
 <h2 id="redoing-the-bed-mesh">Redoing the bed mesh</h2>
 <div class="highlight"><pre><span></span><code>BED_MESH_CALIBRATE BED_TEMP=60
 SAVE_CONFIG
@@ -2997,7 +2997,7 @@ SAVE_CONFIG
       <script id="__config" type="application/json">{"annotate":null,"base":"../../../..","features":["navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.tabs","navigation.indexes","navigation.expand","navigation.top","navigation.footer","content.code.copy","search.suggest","search.highlight"],"redirect":null,"search":"../../../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d31f0ffa.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.3cb411a8.min.js"></script>
       
     
   </body>
