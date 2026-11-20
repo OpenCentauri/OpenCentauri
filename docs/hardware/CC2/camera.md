@@ -22,7 +22,7 @@ Flash|
 At least two revisions of the Centauri Carbon 2 camera PCB exist. The most recent
 version (V1.0.30D) was delivered to a customer to replace a faulty V1.0.30B module
 and has a different camera SoC, has a wider field of view, and seems to be outputting
-15:10 video squashed down to 4:3, as well as the relocation of several passives on
+3:2 video squashed down to 4:3, as well as the relocation of several passives on
 the front of the PCB, other changes have not been documented at this time.
 
 # V1.0.30B
