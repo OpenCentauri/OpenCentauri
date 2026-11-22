@@ -2822,7 +2822,11 @@
 <div class="highlight"><pre><span></span><code>[load_cell_probe]
 pullback_distance: 0.6
 </code></pre></div>
-<p>Values of <code>0.5</code> and <code>0.6</code> have both helped. Note this is <code>printer.cfg</code>, so the syntax is <code>key: value</code> with a colon — using <code>=</code> here silently does nothing.</p>
+<p>Values of <code>0.5</code> and <code>0.6</code> have both helped. Note this is <code>printer.cfg</code>, so the syntax is <code>key: value</code> with a colon — using <code>=</code> here silently does nothing.
+7. <strong>Try slower probing moves.</strong> If the tap fails due to <code>TAP_CHRONOLOGY</code> or <code>TAP_SHAPE_INVALID</code> error in <code>klippy.log</code>, override the shipped <code>2.0</code> speed in <code>printer.cfg</code>:</p>
+<div class="highlight"><pre><span></span><code>[load_cell_probe]
+speed: 1.0
+</code></pre></div>
 </li>
 </ol>
 <h2 id="load-cell-force-safety-limit">Load cell force safety limit</h2>
