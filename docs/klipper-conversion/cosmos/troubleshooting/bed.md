@@ -8,7 +8,12 @@ Symptoms include `Probe triggered prior to movement`, runs of `Bad probe detecte
 
 Work through these in order — the mechanical causes are the most common, and no amount of recalibration fixes them.
 
-1. **Reseat the bed assembly.** Remove and refit the heated bed so all springs seat evenly and the screws are tightened evenly. It is an involved job, but it is the fix that has most reliably resolved these errors.
+1. **Reseat the bed assembly.** Remove and refit the heated bed so all springs seat evenly and the screws are tightened evenly. It is an involved job, but it is the fix that has most reliably resolved these errors. To help with leveling the bed run this command:
+
+    ``` gcode
+    MANUAL_LEVEL
+    ```
+    
 2. **Reseat the load cell connectors.** Sometimes unplugging and plugging back in helps.
 3. **Re-tare the load cells.** This is safe to run as often as you like:
 
