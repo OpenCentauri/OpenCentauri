@@ -31,7 +31,12 @@ Work through these in order — the mechanical causes are the most common, and n
     ```
 
     Values of `0.5` and `0.6` have both helped. Note this is `printer.cfg`, so the syntax is `key: value` with a colon — using `=` here silently does nothing.
+7. **Try slower probing moves.** If the tap fails due to `TAP_CHRONOLOGY` or `TAP_SHAPE_INVALID` error in `klippy.log`, override the shipped `2.0` speed in `printer.cfg`:
 
+    ```
+    [load_cell_probe]
+    speed: 1.0
+    ```
 
 ## Load cell force safety limit
 
