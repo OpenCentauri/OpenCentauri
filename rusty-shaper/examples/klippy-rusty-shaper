@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Example Klippy integration for a Cosmos-installed rusty-shaper binary.
+# Invoke it immediately after raw TEST_RESONANCES captures for both X and Y.
+
+set -eu
+
+log_file=/etc/klipper/logs/klippy.log
+shapers=${1:-}
+
+find_raw_data() {
+    axis=$1
+    awk -v axis="$axis" '
+        /Writing raw accelerometer data to/ && $0 ~ ("raw_data_" axis "_") {
+            if (match($0, /\/[^ ]+\.csv/))
+                file = substr($0, RSTART, RLENGTH)
+        }
+        END { print file }
+    ' "$log_file"
+}
+
+x_file=$(find_raw_data x)
+y_file=$(find_raw_data y)
+
+if [ -z "$x_file" ] || [ -z "$y_file" ]; then
+    echo "Rusty Shaper could not find the X and Y raw resonance captures in $log_file" >&2
+    exit 1
+fi
+
+work_dir=$(dirname "$x_file")
+set -- --workdir "$work_dir" --output csv --output klippy \
+    --log-macro M125 --moonraker-host 127.0.0.1 --moonraker-port 80
+
+if [ -n "$shapers" ]; then
+    set -- "$@" --shapers "$shapers"
+fi
+
+exec /usr/bin/rusty-shaper "$@" "$x_file" "$y_file"
