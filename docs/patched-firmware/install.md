@@ -1,5 +1,17 @@
 # Install Patched Firmware
 
+!!! warning "**Deprecation notice**"
+    Please note as of **<ins>November 25th 2026</ins>**, the "patched" firmware has been deprecated.
+    Future development efforts will be focussed on COSMOS and bug reports for patched will
+    not be prioritized. Newly discovered major issues may still receive fixes but we
+    recommend migrating to COSMOS if you're having any problems.
+
+    If your printer is working and you aren't interested in updating, it is safe to
+    remain on patched firmware, just be aware new features and fixes likely won't be
+    backported to patched.
+
+    [COSMOS installation instructions](../klipper-conversion/cosmos/cosmos.md)
+
 === "Online"
     !!! warning "Online requirement"
 
