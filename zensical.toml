@@ -62,6 +62,7 @@ nav = [
     { "Stability and memory" = "klipper-conversion/cosmos/troubleshooting/stability.md" },
     { "Z offset" = "klipper-conversion/cosmos/troubleshooting/z-offset.md" },
     { "CANVAS and AFC" = "klipper-conversion/cosmos/troubleshooting/canvas.md" },
+    { "Centauri 2 eMMC incompatibility" = "klipper-conversion/cosmos/troubleshooting/c2-emmc.md" },
     { "Configuration and recovery" = "klipper-conversion/cosmos/troubleshooting/recovery.md" },
     { "Common questions" = "klipper-conversion/cosmos/troubleshooting/questions.md" },
   ] },

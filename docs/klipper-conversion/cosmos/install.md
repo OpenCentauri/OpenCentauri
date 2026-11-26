@@ -47,6 +47,16 @@
 
 === "Centauri Carbon 2 / Centauri 2"
 
+    !!! danger "**<ins>IMPORTANT: Centauri 2 eMMC incompatibility</ins>**"
+        Please be aware that some Centauri 2 printers have shipped with an incompatible eMMC (flash storage) chip,
+        affected printers cannot currently support COSMOS due to an issue establishing the correct signal timing.
+        This issue is being investigated currently and we hope to provide a fix soon.
+
+        Attempting to install COSMOS on affected printers <ins>**will cause a boot failure**</ins> which requires manual recovery.
+
+        To identify if your Centauri 2 is affected by this, you'll need to remove the bottom panel and check which
+        board revision and eMMC chip is installed. [See here for board identifiers.](./troubleshooting/c2-emmc.md)
+
     1. Download the OTA upgrade file for your model from the [latest COSMOS release](https://github.com/OpenCentauri/cosmos/releases/latest):
         - **Centauri Carbon 2 / Centauri Carbon 2 Combo:** the `cc2_eeb001_*.zip.sig` file.
         - **Centauri 2 / Centauri 2 Combo:** the `c2_eeb001_*.zip.sig` file.
