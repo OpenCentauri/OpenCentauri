@@ -80,6 +80,13 @@ Import and use the latest COSMOS profile for your printer before printing. These
 
     Older machine G-code that calls `M729` or `M8213` triggers an emergency stop and displays a message telling you to use the COSMOS start and end machine G-code. Update the profile before trying to print again.
 
+!!! warning "Exclude Objects off by default"
+
+    The default Process profile does not have "Exclude objects" enabled under "Others" settings. This option is required for exclude object,
+    adaptive purge and adaptive bed meshing to work properly. Please enable this option manually and save the profile.
+
+    ![Orca Exclude Objects](assets/orca_exclude_objects.png)
+
 Set the printer connection in OrcaSlicer to:
 
 - Host Type: `Moonraker (Klipper)`
