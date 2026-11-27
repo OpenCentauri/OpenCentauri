@@ -10,7 +10,7 @@
 
     Run full Klipper on the stock mainboard with no extra hardware required.
 
--   :fontawesome-solid-band-aid:{ .lg .middle } __Patched Firmware__
+-   :fontawesome-solid-band-aid:{ .lg .middle } __Patched Firmware__ <small>(deprecated)</small>
 
     ---
 
