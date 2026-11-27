@@ -1,5 +1,17 @@
 # Patched Firmware
 
+!!! warning "**Deprecation notice**"
+    Please note as of **<ins>November 25th 2026</ins>**, the "patched" firmware has been deprecated.
+    Future development efforts will be focussed on COSMOS and bug reports for patched will
+    not be prioritized. Newly discovered major issues may still receive fixes but we
+    recommend migrating to COSMOS if you're having any problems.
+
+    If your printer is working and you aren't interested in updating, it is safe to
+    remain on patched firmware, just be aware new features and fixes likely won't be
+    backported to patched.
+
+    [COSMOS installation instructions](../klipper-conversion/cosmos/cosmos.md)
+
 Install a patched version of Elegoo's official CC1 firmware with bug fixes, quality-of-life improvements, and developer features — no extra hardware required.
 
 Read the [installation instructions](./install.md)
@@ -12,16 +24,16 @@ If you'd like to support our work, you can do so on [Ko-Fi](https://ko-fi.com/op
 
 !!! warning "**Looking for Full Klipper/COSMOS?**"
 
-    This is regular OpenCentauri patched from official Elegoo firmware, for Beta full Klipper/Kalico firmware with COSMOS go [here](../klipper-conversion/cosmos/cosmos.md)
+    This is regular OpenCentauri patched from official Elegoo firmware. For the full Klipper/Kalico firmware with COSMOS go [here](../klipper-conversion/cosmos/cosmos.md)
 
-!!! note "Beta Software"
-    This project is currently in beta, so expect some issues. If you need support, feel free to [join the Discord](https://discord.gg/t6Cft3wNJ3).
+!!! warning "Winding down"
+    The patched firmware will stop receiving active updates soon. It remains installable and usable, but new features are going into [COSMOS](../klipper-conversion/cosmos/cosmos.md) instead, and users who want continued feature development are encouraged to move over. If you need support, feel free to [join the Discord](https://discord.gg/t6Cft3wNJ3).
 
 ## FAQ
 
 ??? question "**What is OpenCentauri patched firmware?**"
 
-    A modified version of Elegoo's official CC1 firmware (based on 1.1.40) that adds bug fixes, quality-of-life improvements, and developer features — without replacing the underlying software stack.
+    A modified version of Elegoo's official CC1 firmware (based on 1.4.46 as of v0.4.0) that adds bug fixes, quality-of-life improvements, and developer features — without replacing the underlying software stack.
 
 ??? question "**What does the patched firmware get me that stock firmware doesn't?**"
 
@@ -50,13 +62,19 @@ If you'd like to support our work, you can do so on [Ko-Fi](https://ko-fi.com/op
 
     No. The patched firmware runs entirely on stock hardware. Only a FAT32-formatted USB drive is needed for installation.
 
+??? question "**Does it work with the CANVAS multimaterial upgrade?**"
+
+    Yes, from v0.4.0 onwards. That release rebased the OpenCentauri patches onto Elegoo 1.4.46, the official firmware that introduced CANVAS support, so multi-color printing behaves the same as it does on stock. v0.3.0 and earlier were based on 1.1.40 and are only compatible with non-CANVAS CC1s on the older mainboard — if you have CANVAS or a printer with the newer Wi-Fi chip, use patched firmware v0.4.0 or newer (or stock 1.4.42 or newer).
+
+    If you would rather drive CANVAS from a full Klipper stack, [COSMOS](../klipper-conversion/cosmos/cosmos.md) supports it through AFC.
+
 ??? question "**Is this the same as COSMOS?**"
 
-    No. Patched firmware is still based on Elegoo's official software stack with targeted patches applied on top. [COSMOS](../klipper-conversion/cosmos/cosmos.md) is a full replacement firmware based on Klipper/Kalico that gives complete control over the hardware, but is currently in beta.
+    No. Patched firmware is still based on Elegoo's official software stack with targeted patches applied on top. [COSMOS](../klipper-conversion/cosmos/cosmos.md) is a full replacement firmware based on Klipper/Kalico that gives complete control over the hardware, and is where active development is now focused.
 
 ??? question "**Is it compatible with the Centauri Carbon 2?**"
 
-    Not currently. The patched firmware is based on Elegoo's CC1 firmware (1.1.40). CC2 support is not available at this time.
+    Not currently. The patched firmware is based on Elegoo's CC1 firmware. CC2 support is not available at this time.
 
 ??? question "**How do I install it?**"
 
@@ -68,7 +86,7 @@ If you'd like to support our work, you can do so on [Ko-Fi](https://ko-fi.com/op
 
 ??? question "**How do I uninstall it?**"
 
-    Follow the installation steps again and run `Install Official 1.1.40` instead of `Install OpenCentauri`. See the [Install page](./install.md#uninstall).
+    Follow the installation steps again and select `Install Official` > `Install 1.4.46 (Online)`. See the [Install page](./install.md#uninstall).
 
 ??? question "**Does installing the patched firmware break my warranty?**"
 

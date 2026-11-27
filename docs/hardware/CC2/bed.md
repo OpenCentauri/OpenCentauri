@@ -5,7 +5,7 @@
 
 ## Bed Heating SSR Board
 
-[Like the CC1](../CC1/bed.md/#bed-heating-ssr-board) the CC2 uses a solid state relay (SSR) board to control the mains bed heating.
+[Like the CC1](../CC1/bed.md#bed-heating-ssr-board) the CC2 uses a solid state relay (SSR) board to control the mains bed heating.
 
 Front|Back
 ---|---
@@ -22,7 +22,7 @@ Front|Back
 ---|---
 ![Bed board image](./assets/cc2bed1.jpg){ width="550" }|![Bed board back image](./assets/cc2bed2.jpg){ width="500" }
 
-The bed is its own Klipper MCU and some pressure sensors [similar on the CC1](../CC1/bed.md/#bed-leveling-board). However on the CC2 board does not use four discrete HX711 amplifiers for strain gauge polling as on the CC1 but instead has a single amplifier IC. 
+The bed is its own Klipper MCU and some pressure sensors [similar on the CC1](../CC1/bed.md#bed-leveling-board). However on the CC2 board does not use four discrete HX711 amplifiers for strain gauge polling as on the CC1 but instead has a single amplifier IC.
 
 ## Bed MCU
 

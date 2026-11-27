@@ -9,6 +9,7 @@ serialport = "4"
 log = "^0.3"
 crc16 = "^0.3"
 md-5 = "0.10"
+thiserror = "2"
 
 [profile.release]
 strip = true

@@ -1,0 +1,142 @@
+[project]
+site_name = "OpenCentauri"
+site_url = "https://docs.opencentauri.cc"
+site_description = "Community documentation for the Elegoo Centauri Carbon 3D printer"
+copyright = "Copyright &copy; OpenCentauri contributors"
+repo_url = "https://github.com/suchmememanyskill/OpenCentauri"
+repo_name = "OpenCentauri"
+extra_css = ["extra.css"]
+
+nav = [
+  { "Home" = "index.md" },
+  { "Hardware" = [
+  { "CC1" = [
+    { "Hardware" = "hardware/CC1/index.md" },
+    { "Mainboard" = "hardware/CC1/mainboard.md" },
+    { "FEL & UART Setup" = "hardware/CC1/fel-uart-setup.md" },
+    { "EMMC Tap Points" = "hardware/CC1/emmc-tapping.md" },
+    { "Toolhead" = "hardware/CC1/toolhead.md" },
+    { "Camera" = "hardware/CC1/camera.md" },
+    { "Bed" = "hardware/CC1/bed.md" },
+    { "Screen" = "hardware/CC1/screen.md" },
+    { "Miscellaneous" = "hardware/CC1/misc.md" },
+    { "CANVAS" = "hardware/CC1/CANVAS.md" },
+    { "Official Documentation" = "hardware/CC1/documentation.md" },
+  ] },
+  { "CC2" = [
+    { "Hardware" = "hardware/CC2/index.md" },
+    { "Mainboard" = "hardware/CC2/mainboard.md" },
+    { "FEL & UART Setup" = "hardware/CC2/fel-uart-setup.md" },
+    { "Toolhead" = "hardware/CC2/toolhead.md" },
+    { "Camera" = "hardware/CC2/camera.md" },
+    { "Bed" = "hardware/CC2/bed.md" },
+    { "Screen" = "hardware/CC2/screen.md" },
+    { "Miscellaneous" = "hardware/CC2/misc.md" },
+    { "CANVAS" = "hardware/CC2/CANVAS.md" },
+    { "Official Documentation" = "hardware/CC2/documentation.md" },
+  ] },
+  { "CANVAS" = [
+    { "Components" = "hardware/CANVAS/CANVAS_components.md" },
+    { "Drivetrain" = "hardware/CANVAS/CANVAS_drivetrain.md" },
+    { "Unreleased Designs" = "hardware/CANVAS/CANVAS_unreleased.md" },
+  ] },
+  ] },
+  { "Official Firmware" = [
+  { "Software" = "software/index.md" },
+  { "Partitions" = "software/partitions.md" },
+  { "Updates" = "software/updates.md" },
+  { "Updates (CC2 / C2)" = "software/updates-cc2.md" },
+  { "API" = "software/api.md" },
+  { "Custom gcode" = "software/custom-gcode.md" },
+  { "Embedded Firmware" = "software/embedded-firmware.md" },
+  { "FEL" = "software/FEL-mode.md" },
+  ] },
+  { "COSMOS Firmware" = [
+  { "About COSMOS" = "klipper-conversion/cosmos/cosmos.md" },
+  { "Install" = "klipper-conversion/cosmos/install.md" },
+  { "Features" = "klipper-conversion/cosmos/features.md" },
+  { "AMS Support" = "klipper-conversion/cosmos/ams.md" },
+  { "Troubleshooting" = [
+    "klipper-conversion/cosmos/troubleshooting/index.md",
+    { "Bed issues" = "klipper-conversion/cosmos/troubleshooting/bed.md" },
+    { "Printing and slicer issues" = "klipper-conversion/cosmos/troubleshooting/printing.md" },
+    { "Stability and memory" = "klipper-conversion/cosmos/troubleshooting/stability.md" },
+    { "Z offset" = "klipper-conversion/cosmos/troubleshooting/z-offset.md" },
+    { "CANVAS and AFC" = "klipper-conversion/cosmos/troubleshooting/canvas.md" },
+    { "Configuration and recovery" = "klipper-conversion/cosmos/troubleshooting/recovery.md" },
+    { "Common questions" = "klipper-conversion/cosmos/troubleshooting/questions.md" },
+  ] },
+  ] },
+  { "Patched Firmware" = [
+  { "About" = "patched-firmware/index.md" },
+  { "Install" = "patched-firmware/install.md" },
+  { "Features" = "patched-firmware/features.md" },
+  { "Modified slicer gcode" = "patched-firmware/modified_start_end_machine_gcode.md" },
+  ] },
+  { "Mainboard Replacement" = "klipper-conversion/klipper-via-mainboard-replacement/index.md" },
+  { "Mods" = [
+  { "Machine Mods" = "mods/machine_mods.md" },
+  { "Printable Mods" = [
+    { "FDM-Optimized replacement parts" = "mods/optimized_parts.md" },
+    { "Printable Mods" = "mods/printable_mods.md" },
+  ] },
+  { "Light Mods" = "mods/light_mods.md" },
+  { "Camera Replacement" = "mods/camera_mods.md" },
+  ] },
+]
+
+[project.markdown_extensions]
+admonition = {}
+pymdownx.details = {}
+pymdownx.superfences = {}
+attr_list = {}
+md_in_html = {}
+pymdownx.blocks.caption = {}
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.tabbed.alternate_style = true
+
+[project.plugins.search]
+lang = "en"
+
+[project.plugins.glightbox]
+
+[project.theme]
+variant = "classic"
+features = [
+  "navigation.instant",
+  "navigation.instant.prefetch",
+  "navigation.instant.progress",
+  "navigation.tabs",
+  "navigation.indexes",
+  "navigation.expand",
+  "navigation.top",
+  "navigation.footer",
+  "content.code.copy",
+  "search.suggest",
+  "search.highlight",
+]
+icon.repo = "fontawesome/brands/github"
+icon.logo = "material/cube"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "material/brightness-auto"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "material/brightness-7"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "material/brightness-4"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/discord"
+link = "https://discord.gg/t6Cft3wNJ3"

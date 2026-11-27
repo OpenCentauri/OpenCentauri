@@ -14,4 +14,4 @@ Discord: https://discord.gg/t6Cft3wNJ3
 1. Install [Git](https://git-scm.com/)
 1. Clone this repository `git clone https://github.com/suchmememanyskill/OpenCentauri`
 1. Inside the repository's folder, run `pip install -r requirements.txt`
-1. Run `mkdocs serve` for a live preview of the site
+1. Run `zensical serve` for a live preview of the site

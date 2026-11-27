@@ -1,28 +1,42 @@
-permissions:
-  contents: write
-
 name: build-docs
+
 on:
   push:
     branches:
       - main
     paths:
       - "docs/**"
-      - "mkdocs.yml"
+      - "zensical.toml"
+      - "requirements.txt"
+      - ".github/workflows/docs.yml"
   workflow_dispatch:
-      
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.x"
 
       - run: pip install -r requirements.txt
 
-      - run: MKDOCS_GIT_COMMITTERS_APIKEY=${{secrets.GITHUB_TOKEN}} mkdocs gh-deploy --force --clean --verbose
+      - run: zensical build --clean
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e  # v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          cname: docs.opencentauri.cc

@@ -34,7 +34,7 @@ CANVAS RFID Board. Credit to u/CalligrapherLoud778 on the Elegoo subreddit.
 
 ### Filament Detector Boards
 
-One filament detector board is positioned along each channel's filament path. The boards use Hall effect sensors to detect filament presence; the sensor is visible on the rear of each board.
+One filament detector board is positioned along each channel's filament path. Each board carries a mechanical switch to detect filament presence; the switch is actuated by a spring-loaded bullet-shaped pin that the filament pushes against as it passes. The switch is visible on the rear of each board.
 
 ![Filament detector boards alongside CANVAS motors](../CC2/assets/hall2.jpg){ width="400" }
 

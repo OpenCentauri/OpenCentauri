@@ -355,6 +355,36 @@ impl Ymodem {
 
             println!("Sending block {}", block_num);
 
+            if !self.canvas {
+                (dev.write_all(&buff))?;
+                (dev.flush())?;
+
+                match (get_byte_timeout(dev))? {
+                    Some(c) => {
+                        if c == ACK {
+                            dbg!("Received ACK for block {}", block_num);
+                            continue;
+                        } else {
+                            warn!("Expected ACK, got {}", c);
+                        }
+                        // TODO handle CAN bytes
+                    }
+                    None => warn!("Timeout waiting for ACK for block {}", block_num),
+                }
+
+                self.errors += 1;
+
+                if self.errors >= self.max_errors {
+                    eprint!(
+                        "Exhausted max retries ({}) while sending block {} in YMODEM transfer",
+                        self.max_errors, block_num
+                    );
+                    return Err(Error::ExhaustedRetries);
+                }
+
+                continue;
+            }
+
             let mut block_tries = 0u32;
             loop {
                 (dev.write_all(&buff))?;

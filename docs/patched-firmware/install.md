@@ -1,5 +1,17 @@
 # Install Patched Firmware
 
+!!! warning "**Deprecation notice**"
+    Please note as of **<ins>November 25th 2026</ins>**, the "patched" firmware has been deprecated.
+    Future development efforts will be focussed on COSMOS and bug reports for patched will
+    not be prioritized. Newly discovered major issues may still receive fixes but we
+    recommend migrating to COSMOS if you're having any problems.
+
+    If your printer is working and you aren't interested in updating, it is safe to
+    remain on patched firmware, just be aware new features and fixes likely won't be
+    backported to patched.
+
+    [COSMOS installation instructions](../klipper-conversion/cosmos/cosmos.md)
+
 === "Online"
     !!! warning "Online requirement"
 
@@ -11,8 +23,8 @@
     1. Eject your thumbdrive from your pc and insert it into your Centauri Carbon
     1. On your Centauri Carbon, navigate to the files tab, then tap the `Usb Drive` menu, then tap the `install_opencentauri` folder
     1. Touch hold the `IMPORT_ME_DO_NOT_PRINT` file, then tap `Import`
-    1. Run `Install OpenCentauri (Online)`
-    1. Restart when the install process finished
+    1. In the installer, select `Install OpenCentauri` > `Install Patched (Online)`
+    1. Select `Reboot` when the installation has finished
 
 === "Local/Offline"
 
@@ -23,8 +35,8 @@
     1. Eject your thumbdrive from your pc and insert it into your Centauri Carbon
     1. On your Centauri Carbon, navigate to the files tab, then tap the `Usb Drive` menu, then tap the `install_opencentauri` folder
     1. Touch hold the `IMPORT_ME_DO_NOT_PRINT` file, then tap `Import`
-    1. Run `Install OpenCentauri (Local)`
-    1. Restart when the install process finished
+    1. In the installer, select `Install OpenCentauri` > `Install OpenCentauri From USB`
+    1. Select `Reboot` when the installation has finished
 
 You should now be greeted by the OpenCentauri splash screen :tada:
 
@@ -36,4 +48,4 @@ You can either accept OTA updates directly on the device or repeat the steps in 
 
 ## Uninstall
 
-Follow the steps again in the [Installation section](#install-patched-firmware). Instead of running `Install OpenCentauri (Online)`, run `Install Official 1.1.40 (Online)`
+Follow the steps again in the [Installation section](#install-patched-firmware). In the installer, select `Install Official` > `Install 1.4.46 (Online)`.

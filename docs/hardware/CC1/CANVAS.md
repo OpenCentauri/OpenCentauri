@@ -4,6 +4,9 @@ CANVAS is a multimaterial upgrade kit for the CC1. The CANVAS module hardware is
 
 The official manual is available [here](https://raw.githubusercontent.com/OpenCentauri/tools/refs/heads/main/pdf/CC1_canvas_manual_EN.pdf).
 
+<iframe src="https://smith150.autodesk360.com/shares/public/SH90d2dQT28d5b602811c32347388b2b10da?mode=embed" width="800" height="800" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+
+
 ![CC1 CANVAS upgrade kit contents](./assets/canvas_kit.jpg){ width="800" }
 /// caption
 Contents of a CC1 CANVAS upgrade kit, excluding cables. A top cover is not included.
@@ -15,6 +18,7 @@ Contents of a CC1 CANVAS upgrade kit, excluding cables. A top cover is not inclu
 /// caption
 Credit to anna_devminer on the OpenCentauri Discord.
 ///
+
 
 The CANVAS core module mounts on the top frame insert of the CC1. It is mechanically identical to the CC2 CANVAS but uses a different mainboard revision and a slightly different [RFID board revision](../CANVAS/CANVAS_components.md#rfid-board).
 
@@ -52,6 +56,93 @@ Front|Back
 /// caption
 CC1 CANVAS toolhead board. Credit to anna_devminer on the OpenCentauri Discord.
 ///
+
+## Toolhead Board Pins
+
+![Mainboard diagram](./assets/cc1canvas_pinmap.svg){ width="1000" }
+/// caption
+Credit to Baconmilkshake on the OpenCentauri Discord.
+///
+
+=== "Toolhead USB (24V)"
+    Type: USB-C, carries 24V Vbus
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| D+ | USB D+ ||
+    |2| D- | USB D- ||
+
+=== "Part Cooling Fan"
+    Type: 4-Pin connector
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| Tach | PA0 ||
+    |2| PWM | PB5 ||
+    |3| 24V | +24V ||
+    |4| Gnd | GND ||
+
+=== "LIS2DW12 (SPI1)"
+    Onboard accelerometer test point
+
+    |marking|pin|
+    |---|---|
+    |CS|PA4|
+
+=== "Stepper E"
+    Type: 4-Pin connector (motor coil)
+
+    |pin nr|marking|remarks|
+    |--|---|---|
+    |1| 2B ||
+    |2| 1A ||
+    |3| 2A ||
+    |4| 1B ||
+
+    Driver control test points:
+
+    |marking|pin|
+    |---|---|
+    |EN|PC15|
+    |STEP|PC13|
+    |DIR|PC14|
+    |TX|PC6|
+    |UART|PC7|
+    |DIAG|PG14|
+
+=== "Filament Detector Board"
+    Type: 4-Pin connector, connects to the [CC2 filament detector board](../CC2/toolhead.md#filament-detector-board)
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| S5 | PB2 | Top row, tangle detection|
+    |2| S4 | PC5 | Top row, [cutter actuation sensor](../CC2/toolhead.md#filament-cutter-actuation-sensor)|
+    |3| S3 | ~ | Top row, Model detection- not in cfg|
+    |4| S2 | PB0 | Top row, optical filament detect|
+    |5| NC || Bottom row|
+    |6| S1 | PC4 | Bottom row, toolhead cover detection|
+    |7| Gnd | GND | Bottom row|
+    |8| 3V3 | +3.3V | Bottom row|
+
+=== "Supplementary Board"
+    Type: 8-Pin connector (2x4)
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| FP | PC8 | Hotend fan PWM|
+    |2| LED- | PC9 | LED PWM|
+    |3| Temp | PA3 | Top row|
+    |4| Heat | PB6 | Top row|
+    |5| F+ | +24V | Bottom row, also LED+|
+    |6| FS | PA1 | Hotend fan tach, 24v|
+    |7| F- | GND | Bottom row|
+    |8| F+ | +24V | Bottom row|
+
+=== "Misc LEDs"
+    |marking|pin|
+    |---|---|
+    |led2|PG15|
+    |typec_led|PC2|
 
 ### Toolhead Board MCU
 

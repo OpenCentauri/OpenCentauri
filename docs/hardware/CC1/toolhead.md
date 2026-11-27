@@ -23,6 +23,79 @@ Credit to rabirx on the OpenCentauri Discord.
 
 The Toolhead board has an 2x4 pin port at the bottom of the board. This connector connects to a separate pcb, that breaks out the necessary connectors for the hotend (Temperature sensor, heater, hotend fan).
 
+## Toolhead Board Pins
+
+![Mainboard diagram](./assets/cc1_pinmap.svg){ width="1000" }
+/// caption
+Credit to Baconmilkshake on the OpenCentauri Discord.
+///
+
+=== "Toolhead USB (24V)"
+    Type: USB-C, carries 24V Vbus
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| D+ | USB D+ ||
+    |2| D- | USB D- ||
+
+=== "Part Cooling Fan"
+    Type: 4-Pin connector
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| Tach | PA0 ||
+    |2| PWM | PB5 ||
+    |3| 24V | +24V ||
+    |4| Gnd | GND ||
+
+=== "LIS2DW12 (SPI1)"
+    Onboard accelerometer test point
+
+    |marking|pin|
+    |---|---|
+    |CS|PA4|
+
+=== "Stepper E"
+    Type: 4-Pin connector (motor coil)
+
+    |pin nr|marking|remarks|
+    |--|---|---|
+    |1| 2B ||
+    |2| 1A ||
+    |3| 2A ||
+    |4| 1B ||
+
+    Driver control test points:
+
+    |marking|pin|
+    |---|---|
+    |EN|PC15|
+    |STEP|PC13|
+    |DIR|PC14|
+    |TX|PE9|
+    |UART|PE6|
+    |DIAG|PG4|
+
+=== "Supplementary Board"
+    Type: 8-Pin connector (2x4), connects to [supplementary board](#supplementary-board)
+
+    |pin nr|marking|pin|remarks|
+    |--|---|----|---|
+    |1| FP | PC8 | Hotend fan PWM|
+    |2| LED- | PC9 | LED PWM|
+    |3| Temp | PA3 | Top row|
+    |4| Heat | PB6 | Top row|
+    |5| F+ | +24V | Bottom row, also LED+|
+    |6| FS | PA1 | Hotend fan tach, 24v|
+    |7| F- | GND | Bottom row|
+    |8| F+ | +24V | Bottom row|
+
+=== "LED Test Points"
+    |marking|pin|
+    |---|---|
+    |led2|PG15|
+    |typec_led|PC2|
+
 ## MCU
 
 Metric|Value

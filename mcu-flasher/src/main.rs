@@ -1,4 +1,5 @@
 use std::{fs, io::Cursor, path::PathBuf};
+mod cc2_bootloader;
 mod ymodem;
 use clap::Parser;
 use md5::{Digest, Md5};
@@ -48,6 +49,10 @@ struct Args {
     /// devices; stock Ymodem receivers without this flag.
     #[arg(long, default_value_t = false)]
     pub canvas: bool,
+
+    /// Flash the firmware over the CC2 serial bootloader instead of YMODEM
+    #[arg(long, default_value_t = false, conflicts_with_all = ["skip", "canvas"])]
+    pub cc2: bool,
 }
 
 fn main() {
@@ -130,7 +135,22 @@ fn main() {
         .to_string_lossy()
         .to_string();
 
-    let mut file_bytes = std::fs::read(&args.firmware).expect("Failed to read firmware file");
+    let mut file_bytes = fs::read(&args.firmware).expect("Failed to read firmware file");
+
+    if args.cc2 {
+        let window = std::time::Duration::from_secs(args.timeout as u64);
+
+        println!(
+            "Waiting up to {}s for the CC2 bootloader on {}...",
+            args.timeout, args.device
+        );
+
+        if let Err(err) = cc2_bootloader::deploy(&mut *port, &file_bytes, window) {
+            eprintln!("CC2 flash failed: {}", err);
+            std::process::exit(1);
+        }
+        return;
+    }
 
     let mut file_size_in_bytes = file_bytes.len() as u64;
 

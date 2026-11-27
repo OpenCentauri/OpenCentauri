@@ -258,6 +258,7 @@ dependencies = [
  "log 0.3.9",
  "md-5",
  "serialport",
+ "thiserror",
 ]
 
 [[package]]
