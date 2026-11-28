@@ -24,6 +24,14 @@ Install the sunxi-fel utility (provides `sunxi-fel` command):
 sudo apt install sunxi-tools
 ```
 
+#### Windows
+
+For Windows, a precompiled `sunxi-fel.exe` from BigTreeTech is available in the
+[cc-fw-tools repo](https://github.com/OpenCentauri/cc-fw-tools/blob/main/extra-stuff/emmc/sunxi-fel.exe).
+Download it, drop it in your working folder, and run `.\sunxi-fel.exe ...` in place of the
+`sunxi-fel ...` commands below. You'll still need the WinUSB driver (see
+[Windows: Install USB Driver](#windows-install-usb-driver)).
+
 ### Install xfel Tool
 
 Clone and build the allwinner-xfel repository:
@@ -64,6 +72,11 @@ When successful, you should see on the UART console:
 
 !!! note
     This UART output will only display if you are booting from u-Boot (using the `efex` command) and your BOOT0 has UART enabled. OpenCentauri enables UART by default in the latest versions. If booting directly into FEL mode via hardware reset, you may not see this output.
+
+You should also see a red LED on the board blink **once** when it enters FEL mode.
+
+![Red LED that blinks once on FEL entry](assets/fel-mode-red-led.jpg){ width="300" }
+
 
 ### Method 2: Software Boot (From u-Boot)
 
@@ -116,6 +129,20 @@ Returning back to FEL.
 
 !!! info "UART Initialization Required"
     This command appears to be required to run at least once to correctly initialize the Serial UART on the R528 chip before proceeding with DDR initialization and loading u-Boot.
+
+### Alternative: Load u-Boot in One Step (sunxi-fel)
+
+Instead of Steps 3 and 4 below (the `xfel` DDR-init → write → exec sequence), you can load u-Boot
+with a single `sunxi-fel` command that handles DRAM init, loading, and execution at once:
+
+```bash
+sunxi-fel uboot u-boot-sunxi-with-spl-cc1.bin
+```
+
+The [`u-boot-sunxi-with-spl-cc1.bin`](https://github.com/OpenCentauri/cc-fw-tools/blob/main/extra-stuff/emmc/u-boot-sunxi-with-spl-cc1.bin)
+build is in the [cc-fw-tools](https://github.com/OpenCentauri/cc-fw-tools) repo. You'll land at the
+`=>` U-Boot prompt on the UART console (no key-press needed), then continue from
+[eMMC Recovery](#emmc-recovery).
 
 ### Step 3: Initialize DDR
 

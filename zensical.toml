@@ -26,6 +26,7 @@ nav = [
   { "CC2" = [
     { "Hardware" = "hardware/CC2/index.md" },
     { "Mainboard" = "hardware/CC2/mainboard.md" },
+    { "FEL & UART Setup" = "hardware/CC2/fel-uart-setup.md" },
     { "Toolhead" = "hardware/CC2/toolhead.md" },
     { "Camera" = "hardware/CC2/camera.md" },
     { "Bed" = "hardware/CC2/bed.md" },
