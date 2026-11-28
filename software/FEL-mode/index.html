@@ -980,6 +980,8 @@
       
         
       
+        
+      
     
     
     
@@ -1048,6 +1050,33 @@
     
   
   Mainboard
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/CC2/fel-uart-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FEL & UART Setup
 
     
   </span>
@@ -1748,6 +1777,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Install sunxi-fel Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Windows
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1844,6 +1890,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Step 2: Test with Hello World SPL
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-load-u-boot-in-one-step-sunxi-fel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Alternative: Load u-Boot in One Step (sunxi-fel)
       </span>
     </span>
   </a>
@@ -2868,6 +2925,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Install sunxi-fel Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Windows
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2971,6 +3045,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#alternative-load-u-boot-in-one-step-sunxi-fel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Alternative: Load u-Boot in One Step (sunxi-fel)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#step-3-initialize-ddr" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -3051,6 +3136,12 @@
 <p>Install the sunxi-fel utility (provides <code>sunxi-fel</code> command):</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>sunxi-tools
 </code></pre></div>
+<h4 id="windows">Windows</h4>
+<p>For Windows, a precompiled <code>sunxi-fel.exe</code> from BigTreeTech is available in the
+<a href="https://github.com/OpenCentauri/cc-fw-tools/blob/main/extra-stuff/emmc/sunxi-fel.exe">cc-fw-tools repo</a>.
+Download it, drop it in your working folder, and run <code>.\sunxi-fel.exe ...</code> in place of the
+<code>sunxi-fel ...</code> commands below. You'll still need the WinUSB driver (see
+<a href="#windows-install-usb-driver">Windows: Install USB Driver</a>).</p>
 <h3 id="install-xfel-tool">Install xfel Tool</h3>
 <p>Clone and build the allwinner-xfel repository:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.alerv.net/clone/allwinner-xfel.git
@@ -3082,6 +3173,8 @@ make
 <p class="admonition-title">Note</p>
 <p>This UART output will only display if you are booting from u-Boot (using the <code>efex</code> command) and your BOOT0 has UART enabled. OpenCentauri enables UART by default in the latest versions. If booting directly into FEL mode via hardware reset, you may not see this output.</p>
 </div>
+<p>You should also see a red LED on the board blink <strong>once</strong> when it enters FEL mode.</p>
+<p><a class="glightbox" data-type="image" href="../assets/fel-mode-red-led.jpg"><img alt="Red LED that blinks once on FEL entry" src="../assets/fel-mode-red-led.jpg" width="300" /></a></p>
 <h3 id="method-2-software-boot-from-u-boot">Method 2: Software Boot (From u-Boot)</h3>
 <p>If you already have u-Boot running and UART access, you can boot directly to FEL mode by issuing this command in u-Boot:</p>
 <div class="highlight"><pre><span></span><code>efex
@@ -3116,6 +3209,15 @@ Returning back to FEL.
 <p class="admonition-title">UART Initialization Required</p>
 <p>This command appears to be required to run at least once to correctly initialize the Serial UART on the R528 chip before proceeding with DDR initialization and loading u-Boot.</p>
 </div>
+<h3 id="alternative-load-u-boot-in-one-step-sunxi-fel">Alternative: Load u-Boot in One Step (sunxi-fel)</h3>
+<p>Instead of Steps 3 and 4 below (the <code>xfel</code> DDR-init → write → exec sequence), you can load u-Boot
+with a single <code>sunxi-fel</code> command that handles DRAM init, loading, and execution at once:</p>
+<div class="highlight"><pre><span></span><code>sunxi-fel<span class="w"> </span>uboot<span class="w"> </span>u-boot-sunxi-with-spl-cc1.bin
+</code></pre></div>
+<p>The <a href="https://github.com/OpenCentauri/cc-fw-tools/blob/main/extra-stuff/emmc/u-boot-sunxi-with-spl-cc1.bin"><code>u-boot-sunxi-with-spl-cc1.bin</code></a>
+build is in the <a href="https://github.com/OpenCentauri/cc-fw-tools">cc-fw-tools</a> repo. You'll land at the
+<code>=&gt;</code> U-Boot prompt on the UART console (no key-press needed), then continue from
+<a href="#emmc-recovery">eMMC Recovery</a>.</p>
 <h3 id="step-3-initialize-ddr">Step 3: Initialize DDR</h3>
 <p>Now that FEL mode is verified, initialize the DDR memory:</p>
 <div class="highlight"><pre><span></span><code>./xfel<span class="w"> </span>ddr<span class="w"> </span>r528-s3
