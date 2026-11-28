@@ -1,0 +1,139 @@
+/* Seasonal layer: remove this file from extra_css to restore the usual theme. */
+:root > * {
+  --md-primary-fg-color: #185343;
+  --md-primary-fg-color--light: #286e59;
+  --md-primary-fg-color--dark: #103b30;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color: #ac243b;
+  --md-accent-fg-color--transparent: #ac243b1a;
+  --md-accent-bg-color: #ffffff;
+  --md-accent-bg-color--light: #ffffffb3;
+  --christmas-gold: #d9b66f;
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #fafcfb;
+  --md-typeset-a-color: #17634e;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #15221f;
+  --md-default-fg-color: #edf4f0;
+  --md-default-fg-color--light: #b6c9c1;
+  --md-default-fg-color--lighter: #91aba0;
+  --md-default-fg-color--lightest: #ffffff14;
+  --md-typeset-a-color: #8bd8b6;
+  --md-accent-fg-color: #ff9eab;
+  --md-accent-fg-color--transparent: #ff9eab1a;
+  --md-code-bg-color: #101b18;
+  --md-code-fg-color: #e2eee7;
+}
+
+/* Snow speckles stay in the header, clear of the documentation. */
+.md-header {
+  background-color: #185343;
+  background-image:
+    radial-gradient(circle at 12px 15px, #ffffff85 1px, transparent 1.5px),
+    radial-gradient(circle at 53px 36px, #ffffff55 1px, transparent 1.5px);
+  background-size: 91px 59px, 137px 71px;
+}
+
+.md-tabs {
+  background-color: #103b30;
+  border-bottom: 2px solid var(--christmas-gold);
+}
+
+/* A hanging string with a visible cable and softly glowing bulbs. */
+.md-header::after {
+  content: "";
+  display: block;
+  height: 52px;
+  pointer-events: none;
+  background: url("assets/christmas-lights.svg") repeat-x center top / 720px 52px;
+}
+
+/* Sparse, stationary snowflakes behind the page. Keep the existing watermark. */
+body::after {
+  width: 100%;
+  height: 100%;
+  background-image:
+    url("assets/christmas-snow.svg"),
+    url("assets/watermark.png");
+  background-size: 440px 380px, 400px 400px;
+  background-repeat: repeat, no-repeat;
+  background-position: top left, bottom right;
+}
+
+/* A decorated tree and gifts sit in the outer margin on wide screens. */
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  width: 140px;
+  height: 184px;
+  background: url("assets/christmas-tree.svg") no-repeat center / contain;
+  filter: drop-shadow(0 4px 8px #08271d26);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* On smaller screens the tree has its own space in the footer. */
+@media (max-width: 1530px) {
+  body::before {
+    display: none;
+  }
+
+  .md-footer::before {
+    content: "";
+    display: block;
+    height: 140px;
+    background: url("assets/christmas-tree.svg") no-repeat center / auto 124px;
+    pointer-events: none;
+  }
+}
+
+.md-typeset h1 {
+  border-bottom: 1px solid var(--christmas-gold);
+  padding-bottom: 0.35em;
+}
+
+.md-typeset .md-button {
+  border-radius: 0.3rem;
+}
+
+.md-typeset .md-button--primary {
+  background-color: #185343;
+  border-color: #185343;
+  color: #ffffff;
+}
+
+.md-typeset .md-button--primary:is(:hover, :focus) {
+  background-color: #942237;
+  border-color: #942237;
+  color: #ffffff;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.4rem;
+  border-top: 2px solid var(--christmas-gold);
+}
+
+.md-footer {
+  background-color: #103b30;
+}
+
+@media print {
+  body::before,
+  body::after,
+  .md-footer::before,
+  .md-header::after {
+    display: none;
+  }
+
+  .md-typeset h1,
+  .md-typeset .grid.cards > ul > li {
+    border-color: #777777;
+  }
+}

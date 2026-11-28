@@ -5,7 +5,8 @@ site_description = "Community documentation for the Elegoo Centauri Carbon 3D pr
 copyright = "Copyright &copy; OpenCentauri contributors"
 repo_url = "https://github.com/suchmememanyskill/OpenCentauri"
 repo_name = "OpenCentauri"
-extra_css = ["extra.css"]
+# Remove christmas.css from this list to turn off the seasonal styling.
+extra_css = ["extra.css", "christmas.css"]
 
 nav = [
   { "Home" = "index.md" },

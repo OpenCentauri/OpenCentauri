@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="52" viewBox="0 -8 720 52" fill="none">
+<defs><filter id="glow" x="-100%" y="-80%" width="300%" height="260%"><feGaussianBlur stdDeviation="2"/></filter></defs>
+<!-- Uneven, smooth drapes; endpoint height and slope match across tiles. -->
+<path d="M0 3C50.33 -0.02 100.67 14.00 151 14C209.67 14.00 268.33 -1.00 327 -1C396.67 -1.00 466.33 12.00 536 12C597.33 12.00 658.67 6.68 720 3" stroke="#092e25" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M18 2.59q-1.50 2 -1.50 5.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(16.50 12.59) rotate(-9)">
+<ellipse rx="6" ry="8" fill="#ff738e" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ff738e" stroke="#ffc1cf" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M57 5.19q2.00 2 2.00 7.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(59.00 17.19) rotate(5)">
+<ellipse rx="6" ry="8" fill="#ffda7c" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ffda7c" stroke="#fff0c2" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M96 9.92q-0.50 2 -0.50 4.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(95.50 18.92) rotate(-3)">
+<ellipse rx="6" ry="8" fill="#92f0bd" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#92f0bd" stroke="#d2ffe4" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M140 13.79q1.50 2 1.50 6.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(141.50 24.79) rotate(11)">
+<ellipse rx="6" ry="8" fill="#ffda7c" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ffda7c" stroke="#fff0c2" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M182 12.77q-2.00 2 -2.00 5.50" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(180.00 23.27) rotate(-7)">
+<ellipse rx="6" ry="8" fill="#9edbff" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#9edbff" stroke="#e1f4ff" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M221 8.77q1.00 2 1.00 5.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(222.00 18.77) rotate(2)">
+<ellipse rx="6" ry="8" fill="#ff738e" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ff738e" stroke="#ffc1cf" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M262 3.63q-1.50 2 -1.50 7.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(260.50 15.63) rotate(8)">
+<ellipse rx="6" ry="8" fill="#92f0bd" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#92f0bd" stroke="#d2ffe4" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M305 -0.36q2.00 2 2.00 4.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(307.00 8.64) rotate(-9)">
+<ellipse rx="6" ry="8" fill="#ff738e" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ff738e" stroke="#ffc1cf" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M348 -0.63q-0.50 2 -0.50 6.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(347.50 10.37) rotate(5)">
+<ellipse rx="6" ry="8" fill="#ffda7c" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ffda7c" stroke="#fff0c2" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M389 1.75q1.50 2 1.50 5.50" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(390.50 12.25) rotate(-3)">
+<ellipse rx="6" ry="8" fill="#92f0bd" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#92f0bd" stroke="#d2ffe4" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M430 5.36q-2.00 2 -2.00 5.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(428.00 15.36) rotate(11)">
+<ellipse rx="6" ry="8" fill="#ffda7c" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ffda7c" stroke="#fff0c2" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M476 9.40q1.00 2 1.00 7.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(477.00 21.40) rotate(-7)">
+<ellipse rx="6" ry="8" fill="#9edbff" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#9edbff" stroke="#e1f4ff" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M516 11.67q-1.50 2 -1.50 4.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(514.50 20.67) rotate(2)">
+<ellipse rx="6" ry="8" fill="#ff738e" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ff738e" stroke="#ffc1cf" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M556 11.82q2.00 2 2.00 6.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(558.00 22.82) rotate(8)">
+<ellipse rx="6" ry="8" fill="#92f0bd" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#92f0bd" stroke="#d2ffe4" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M600 10.36q-0.50 2 -0.50 5.50" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(599.50 20.86) rotate(-9)">
+<ellipse rx="6" ry="8" fill="#ff738e" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ff738e" stroke="#ffc1cf" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M644 7.91q1.50 2 1.50 5.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(645.50 17.91) rotate(5)">
+<ellipse rx="6" ry="8" fill="#ffda7c" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#ffda7c" stroke="#fff0c2" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+<path d="M685 5.23q-2.00 2 -2.00 7.00" stroke="#092e25" stroke-width="1.6"/>
+<g transform="translate(683.00 17.23) rotate(-3)">
+<ellipse rx="6" ry="8" fill="#92f0bd" filter="url(#glow)" opacity=".65"/>
+<path d="M-2-5C-2-2-4 0-3.5 3Q-3 6.5 0 6.5T3.5 3C4 0 2-2 2-5Z" fill="#92f0bd" stroke="#d2ffe4" stroke-width="1"/>
+<path d="M-1.5-1q-1 2-.5 4" stroke="#ffffff" stroke-opacity=".65" stroke-width="1" stroke-linecap="round"/>
+<path d="M-2.5-6h5v3h-5z" fill="#254e40"/>
+</g>
+</svg>
