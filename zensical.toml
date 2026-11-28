@@ -49,6 +49,7 @@ nav = [
   { "Custom gcode" = "software/custom-gcode.md" },
   { "Embedded Firmware" = "software/embedded-firmware.md" },
   { "FEL" = "software/FEL-mode.md" },
+  { "Troubleshooting" = "software/troubleshooting.md" },
   ] },
   { "COSMOS Firmware" = [
   { "About COSMOS" = "klipper-conversion/cosmos/cosmos.md" },

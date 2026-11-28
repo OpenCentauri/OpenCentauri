@@ -623,6 +623,9 @@ Gets list of files in specified directory.
 }
 ```
 
+!!! warning "Invalid UTF-8 in the file list"
+    The firmware can store a file list entry with invalid bytes in its name. The whole response is then not valid UTF-8, and browsers close the websocket. See [Troubleshooting](troubleshooting.md#web-ui-shows-no-files-no-history-and-no-camera).
+
 **File/Folder Types:**
 
 - `type: 0` - Folder
